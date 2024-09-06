@@ -8,6 +8,7 @@ public class FirstPersonControls : MonoBehaviour
     [Space(5)]
     // Public variables to set movement and look speed, and the player camera
     public float moveSpeed; // Speed at which the player moves
+    public float sprintSpeed; //Speed at which the player sprints
     public float lookSpeed; // Sensitivity of the camera movement
     public float gravity = -9.81f; // Gravity value
     public float jumpHeight = 1.0f; // Height of the jump
@@ -20,6 +21,7 @@ public class FirstPersonControls : MonoBehaviour
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
     private Vector3 velocity; // Velocity of the player
     private CharacterController characterController; // Reference to the CharacterController component
+    public bool isSprinting = false; //Whether the player is currently sprinting
 
     [Header("SHOOTING SETTINGS")]
     [Space(5)]
@@ -91,7 +93,10 @@ public class FirstPersonControls : MonoBehaviour
         // Subscribe to the crouch input event
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the ToggleCrouch method when crouch input is performed
 
-       // Subscribe to the interact input event
+        // Subscribe to the sprint input event
+        playerInput.Player.Sprint.performed += ctx => ToggleSprint(); // Call the ToggleCrouch method when crouch input is performed
+
+        // Subscribe to the interact input event
         playerInput.Player.Interact.performed += ctx => Interact(); //Interact with switch
 
 
@@ -243,6 +248,25 @@ public class FirstPersonControls : MonoBehaviour
             // Crouch down
             characterController.height = crouchHeight;
             isCrouching = true;
+        }
+    }
+
+    public void ToggleSprint()
+    {
+        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        move = transform.TransformDirection(move);
+
+        if (isSprinting)
+        {
+            //Slow down
+            characterController.Move(move * moveSpeed * Time.deltaTime);
+            isSprinting = false;
+        }
+        else
+        {
+            //Speed Up
+            characterController.Move(move * sprintSpeed * Time.deltaTime);
+            isSprinting = true;
         }
     }
 

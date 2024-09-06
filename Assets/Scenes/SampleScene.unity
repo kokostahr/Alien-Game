@@ -7727,14 +7727,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330356572}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.72789854, z: -0, w: -0.6856849}
+  m_LocalRotation: {x: -0, y: -0.7194077, z: -0, w: -0.69458807}
   m_LocalPosition: {x: -66.95, y: 1.36, z: 0.31}
   m_LocalScale: {x: 1.3323, y: 1.3323, z: 1.3323}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 330585546}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 266.579, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 452.011, z: 0}
 --- !u!114 &1330356577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7748,12 +7748,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  sprintSpeed: 50
   lookSpeed: 0.25
   gravity: -9.81
   jumpHeight: 1.5
   jumpLimit: 2
   timesJumped: 0
   playerCamera: {fileID: 330585546}
+  isSprinting: 0
   projectilePrefab: {fileID: 6627504733444466114, guid: 08b508a4184db2441a5a106123f7b1fb,
     type: 3}
   firePoint: {fileID: 1768703557}
