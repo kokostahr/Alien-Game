@@ -94,7 +94,7 @@ public class FirstPersonControls : MonoBehaviour
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the ToggleCrouch method when crouch input is performed
 
         // Subscribe to the sprint input event
-        playerInput.Player.Sprint.performed += ctx => ToggleSprint(); // Call the ToggleCrouch method when crouch input is performed
+        playerInput.Player.Sprint.performed += ctx => ToggleSprint(); // Call the ToggleSprint method when sprint input is performed
 
         // Subscribe to the interact input event
         playerInput.Player.Interact.performed += ctx => Interact(); //Interact with switch
@@ -119,6 +119,28 @@ public class FirstPersonControls : MonoBehaviour
 
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * moveSpeed * Time.deltaTime);
+
+        //Adjust speed if crouching
+        float currentSpeed;
+
+        if(isCrouching)
+        {
+            currentSpeed = crouchSpeed;
+        }
+        else
+        {
+            currentSpeed = moveSpeed;
+        }
+
+        //Adjust speed when sprinting
+        if(isSprinting)
+        {
+            currentSpeed = sprintSpeed;
+        }
+        else
+        {
+            currentSpeed = moveSpeed;
+        }
     }
     public void LookAround()
     {
@@ -253,19 +275,15 @@ public class FirstPersonControls : MonoBehaviour
 
     public void ToggleSprint()
     {
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        move = transform.TransformDirection(move);
 
         if (isSprinting)
         {
-            //Slow down
-            characterController.Move(move * moveSpeed * Time.deltaTime);
+            //Speed Up
             isSprinting = false;
         }
         else
         {
-            //Speed Up
-            characterController.Move(move * sprintSpeed * Time.deltaTime);
+            //Slow Down
             isSprinting = true;
         }
     }
