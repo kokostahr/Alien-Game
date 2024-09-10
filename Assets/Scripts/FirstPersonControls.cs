@@ -94,7 +94,7 @@ public class FirstPersonControls : MonoBehaviour
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the ToggleCrouch method when crouch input is performed
 
         // Subscribe to the sprint input event
-        playerInput.Player.Sprint.performed += ctx => ToggleSprint(); // Call the ToggleSprint method when sprint input is performed
+        playerInput.Player.Sprint.performed += ctx => Sprint(); // Call the ToggleSprint method when sprint input is performed
 
         // Subscribe to the interact input event
         playerInput.Player.Interact.performed += ctx => Interact(); //Interact with switch
@@ -117,8 +117,6 @@ public class FirstPersonControls : MonoBehaviour
         // Local space refers to its self space whereas world space refers to the gloabal space within the game world. eg a moon orbits around the earth - Local Space. Moon orbits around the sun - world space.
         move = transform.TransformDirection(move);
 
-        // Move the character controller based on the movement vector and speed
-        characterController.Move(move * moveSpeed * Time.deltaTime);
 
         //Adjust speed if crouching
         float currentSpeed;
@@ -133,7 +131,7 @@ public class FirstPersonControls : MonoBehaviour
         }
 
         //Adjust speed when sprinting
-        if(isSprinting)
+        if (isSprinting)
         {
             currentSpeed = sprintSpeed;
         }
@@ -141,6 +139,10 @@ public class FirstPersonControls : MonoBehaviour
         {
             currentSpeed = moveSpeed;
         }
+
+
+        // Move the character controller based on the movement vector and speed
+        characterController.Move(move * currentSpeed * Time.deltaTime);
     }
     public void LookAround()
     {
@@ -191,7 +193,7 @@ public class FirstPersonControls : MonoBehaviour
 
     }
 
-         public void Shoot()                             //to adjust for different bullets;  rename projectile to different bullets and create different shoot methods for each?
+    public void Shoot()                             //to adjust for different bullets;  rename projectile to different bullets and create different shoot methods for each?
 
     {
         //if (holdingGun == true && currentBullets > 0)                                  the gun needs to work
@@ -273,8 +275,12 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
-    public void ToggleSprint()
+    public void Sprint()
     {
+        //Need a movement vector, to find the input
+        Vector3 run = new Vector3(moveInput.x, 0, moveInput.y);
+        run = transform.TransformDirection(run);
+
 
         if (isSprinting)
         {
@@ -286,6 +292,10 @@ public class FirstPersonControls : MonoBehaviour
             //Slow Down
             isSprinting = true;
         }
+
+        // Move the character controller based on the movement vector and speed
+        characterController.Move(run * sprintSpeed * Time.deltaTime);
+
     }
 
     public void Interact()
