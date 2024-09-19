@@ -8,6 +8,7 @@ public class FirstPersonControls : MonoBehaviour
     [Space(5)]
     // Public variables to set movement and look speed, and the player camera
     public float moveSpeed; // Speed at which the player moves
+    public float sprintSpeed; //Speed at which the player sprints
     public float lookSpeed; // Sensitivity of the camera movement
     public float gravity = -9.81f; // Gravity value
     public float jumpHeight = 1.0f; // Height of the jump
@@ -20,6 +21,7 @@ public class FirstPersonControls : MonoBehaviour
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
     private Vector3 velocity; // Velocity of the player
     private CharacterController characterController; // Reference to the CharacterController component
+    public bool isSprinting = false; //Whether the player is currently sprinting
 
     [Header("SHOOTING SETTINGS")]
     [Space(5)]
@@ -91,7 +93,10 @@ public class FirstPersonControls : MonoBehaviour
         // Subscribe to the crouch input event
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the ToggleCrouch method when crouch input is performed
 
-       // Subscribe to the interact input event
+        // Subscribe to the sprint input event
+        playerInput.Player.Sprint.performed += ctx => Sprint(); // Call the ToggleSprint method when sprint input is performed
+
+        // Subscribe to the interact input event
         playerInput.Player.Interact.performed += ctx => Interact(); //Interact with switch
 
 
@@ -112,8 +117,32 @@ public class FirstPersonControls : MonoBehaviour
         // Local space refers to its self space whereas world space refers to the gloabal space within the game world. eg a moon orbits around the earth - Local Space. Moon orbits around the sun - world space.
         move = transform.TransformDirection(move);
 
+
+        //Adjust speed if crouching
+        float currentSpeed;
+
+        if(isCrouching)
+        {
+            currentSpeed = crouchSpeed;
+        }
+        else
+        {
+            currentSpeed = moveSpeed;
+        }
+
+        //Adjust speed when sprinting
+        if (isSprinting)
+        {
+            currentSpeed = sprintSpeed;
+        }
+        else
+        {
+            currentSpeed = moveSpeed;
+        }
+
+
         // Move the character controller based on the movement vector and speed
-        characterController.Move(move * moveSpeed * Time.deltaTime);
+        characterController.Move(move * currentSpeed * Time.deltaTime);
     }
     public void LookAround()
     {
@@ -164,7 +193,7 @@ public class FirstPersonControls : MonoBehaviour
 
     }
 
-         public void Shoot()                             //to adjust for different bullets;  rename projectile to different bullets and create different shoot methods for each?
+    public void Shoot()                             //to adjust for different bullets;  rename projectile to different bullets and create different shoot methods for each?
 
     {
         //if (holdingGun == true && currentBullets > 0)                                  the gun needs to work
@@ -244,6 +273,29 @@ public class FirstPersonControls : MonoBehaviour
             characterController.height = crouchHeight;
             isCrouching = true;
         }
+    }
+
+    public void Sprint()
+    {
+        //Need a movement vector, to find the input
+        Vector3 run = new Vector3(moveInput.x, 0, moveInput.y);
+        run = transform.TransformDirection(run);
+
+
+        if (isSprinting)
+        {
+            //Speed Up
+            isSprinting = false;
+        }
+        else
+        {
+            //Slow Down
+            isSprinting = true;
+        }
+
+        // Move the character controller based on the movement vector and speed
+        characterController.Move(run * sprintSpeed * Time.deltaTime);
+
     }
 
     public void Interact()
