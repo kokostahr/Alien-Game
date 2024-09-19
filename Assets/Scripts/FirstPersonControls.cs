@@ -94,7 +94,7 @@ public class FirstPersonControls : MonoBehaviour
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the ToggleCrouch method when crouch input is performed
 
         // Subscribe to the sprint input event
-        playerInput.Player.Sprint.performed += ctx => Sprint(); // Call the ToggleSprint method when sprint input is performed
+        //playerInput.Player.sprint.performed += ctx => Sprint(); // Call the ToggleSprint method when sprint input is performed
 
         // Subscribe to the interact input event
         playerInput.Player.Interact.performed += ctx => Interact(); //Interact with switch
