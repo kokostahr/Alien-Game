@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightFlickering : MonoBehaviour
 {
-    // Start is called before the first frame update
+   public 
     void Start()
     {
         
