@@ -10989,9 +10989,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8e14435a04ac442b8287e63cd1f952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: {x: -1, y: 0, z: 0}
-  enemySpeed: 5
-  movingRight: 1
 --- !u!1001 &644123059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14734,9 +14731,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8e14435a04ac442b8287e63cd1f952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: {x: -1, y: 0, z: 0}
-  enemySpeed: 5
-  movingRight: 1
 --- !u!1 &1244593021
 GameObject:
   m_ObjectHideFlags: 0
@@ -18918,9 +18912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8e14435a04ac442b8287e63cd1f952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: {x: -1, y: 0, z: 0}
-  enemySpeed: 5
-  movingRight: 1
 --- !u!1001 &1822646912
 PrefabInstance:
   m_ObjectHideFlags: 0
