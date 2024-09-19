@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
     Vector3 enemyMove = Vector3.left;
     public float enemySpeed;
 
+    private bool movingRight = true;
+
     void Start()
     {
         
@@ -15,17 +17,24 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        this.transform.Translate(enemyMove * enemySpeed * Time.deltaTime);
-
-        if (this.transform.position.x <= -0.176f)
+        if (movingRight)
         {
-            enemyMove = Vector3.right;
+            transform.Translate(Vector3.up * enemySpeed * Time.deltaTime);
+
+            if (transform.position.x <= -1)
+            {
+                movingRight = false;
+            }
         }
-        else if (this.transform.position.x >= 0.176f)
+        else 
         {
-            enemyMove = Vector3.left;
-
-
+            transform.Translate(Vector3.down * enemySpeed * Time.deltaTime);
+            if (transform.position.x >= 1)
+            {
+                movingRight = true;
+            }
         }
+        
     }
 }
+
