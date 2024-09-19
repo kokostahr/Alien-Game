@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Vector3 enemyMove = Vector3.left;
+    public float enemySpeed;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        this.transform.Translate(enemyMove * enemySpeed * Time.deltaTime);
+
+        if (this.transform.position.x <= -0.176f)
+        {
+            enemyMove = Vector3.right;
+        }
+        else if (this.transform.position.x >= 0.176f)
+        {
+            enemyMove = Vector3.left;
+
+
+        }
     }
 }
