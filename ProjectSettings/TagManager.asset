@@ -8,6 +8,7 @@ TagManager:
   - PickUp
   - Teleporter
   - Door
+  - Knife
   layers:
   - Default
   - TransparentFX

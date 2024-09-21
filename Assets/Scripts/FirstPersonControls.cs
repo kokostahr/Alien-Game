@@ -28,10 +28,15 @@ public class FirstPersonControls : MonoBehaviour
     public GameObject projectilePrefab; // Projectile prefab for shooting
     public Transform firePoint; // Point from which the projectile is fired (Big T, another game object is transformed)
     public float projectileSpeed = 20f; // Speed at which the projectile is fired
-    public float pickUpRange = 3f; // Range within which objects can be picked up
+    public float pickUpRange = 6f; // Range within which objects can be picked up
     private bool holdingGun = false;
     //public int MaxBullets = 10;
     private int currentBullets;
+
+    [Header("STABBING SETTINGS")]
+    [Space(5)]
+    public float stabSpeed = 15f;
+    private bool holdingKnife = false;
 
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
@@ -196,18 +201,19 @@ public class FirstPersonControls : MonoBehaviour
     public void Shoot()                             //to adjust for different bullets;  rename projectile to different bullets and create different shoot methods for each?
 
     {
-        //if (holdingGun == true && currentBullets > 0)                                  the gun needs to work
-        
+        if (holdingGun == true && currentBullets > 0)                                  //the gun needs to work
+        {
             // Instantiate the projectile at the fire point
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 
             // Get the Rigidbody component of the projectile and set its velocity
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
             rb.velocity = firePoint.forward * projectileSpeed;          //BulletSpawnPoint is the firepoint
-            // Destroy the projectile after 3 seconds
-           Destroy(projectile, 3f);
+                                                                        // Destroy the projectile after 3 seconds
+            Destroy(projectile, 3f);
 
             currentBullets--;
+        }
         
     }
 
@@ -243,7 +249,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.rotation = holdPositionLeft.rotation;
                 heldObject.transform.parent = holdPositionLeft;
             }
-            else if (hit.collider.CompareTag("Gun"))
+            if (hit.collider.CompareTag("Knife"))
             {
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -253,10 +259,59 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.position = holdPositionRight.position;
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
+            }
+            else if (hit.collider.CompareTag("Gun"))
+            {
+                //So that the mf shooting can work
 
                 holdingGun = true;
+                // Pick up the object
+                heldObject = hit.collider.gameObject;
+                heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
+
+                // Attach the object to the hold position
+                heldObject.transform.position = holdPositionRight.position;
+                heldObject.transform.rotation = holdPositionRight.rotation;
+                heldObject.transform.parent = holdPositionRight;
+
+                
             }
-        }
+                //if (hit.collider.CompareTag("Gun"))
+                //{
+
+                //    // Pick up the object
+                //    heldObject = hit.collider.gameObject;
+                //    heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
+
+                //    // Attach the object to the RIGHT hold position
+                //    heldObject.transform.position = holdPositionRight.position;
+                //    heldObject.transform.rotation = holdPositionRight.rotation;
+                //    heldObject.transform.parent = holdPositionRight;
+
+                //    holdingGun = true;
+                //    //Make sure the knife gets dropped
+                //    holdingKnife = false;
+                //    Debug.Log("BAngBang");
+                //}
+                //else if (hit.collider.CompareTag("Knife"))
+                //{
+
+
+                //    // Pick up the object
+                //    heldObject = hit.collider.gameObject;
+                //    heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
+
+                //    // Attach the object to the RIGHT hold position
+                //    heldObject.transform.position = holdPositionRight.position;
+                //    heldObject.transform.rotation = holdPositionRight.rotation;
+                //    heldObject.transform.parent = holdPositionRight;
+
+                //    holdingKnife = true;
+                //    //Make sure the gun is dropped
+                //    holdingGun = false;
+                //    Debug.Log("Stabstab");
+                //}
+            }
     }
 
     public void ToggleCrouch()
