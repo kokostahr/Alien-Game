@@ -244,7 +244,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject = hit.collider.gameObject;
                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
 
-                // Attach the object to the hold position
+                // Attach the object to the LEFT hold position
                 heldObject.transform.position = holdPositionLeft.position;
                 heldObject.transform.rotation = holdPositionLeft.rotation;
                 heldObject.transform.parent = holdPositionLeft;
@@ -255,7 +255,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject = hit.collider.gameObject;
                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
 
-                // Attach the object to the hold position
+                // Attach the object to the RIGHT hold position
                 heldObject.transform.position = holdPositionRight.position;
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
@@ -263,13 +263,13 @@ public class FirstPersonControls : MonoBehaviour
             else if (hit.collider.CompareTag("Gun"))
             {
                 //So that the mf shooting can work
-
                 holdingGun = true;
+
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
 
-                // Attach the object to the hold position
+                // Attach the object to the RIGHT hold position
                 heldObject.transform.position = holdPositionRight.position;
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
