@@ -30,7 +30,7 @@ public class FirstPersonControls : MonoBehaviour
     public float projectileSpeed = 20f; // Speed at which the projectile is fired
     public float pickUpRange = 6f; // Range within which objects can be picked up
     private bool holdingGun = false;
-    //public int MaxBullets = 10;
+    public int MaxBullets = 10;
     private int currentBullets;
 
     [Header("STABBING SETTINGS")]
@@ -64,10 +64,10 @@ public class FirstPersonControls : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
-    /*private void Start()
+    private void Start()
     {
         currentBullets = MaxBullets;
-    } */
+    } 
 
     private void OnEnable() //initialises and enables input actions. It listens for player input to handle, referring to the generated C# script for the action map
     {
@@ -198,11 +198,12 @@ public class FirstPersonControls : MonoBehaviour
 
     }
 
-    public void Shoot()                             //to adjust for different bullets;  rename projectile to different bullets and create different shoot methods for each?
-
+    public void Shoot()
     {
-        if (currentBullets > 0)                                  //the gun needs to work (holdingGun == true && currentBullets > 0)
+        if (holdingGun == true && currentBullets > 0)                                 
         {
+            Debug.Log("Shoot called");
+
             // Instantiate the projectile at the fire point
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 
@@ -214,7 +215,6 @@ public class FirstPersonControls : MonoBehaviour
 
             currentBullets--;
         }
-        
     }
 
     public void PickUpObject()
@@ -276,7 +276,7 @@ public class FirstPersonControls : MonoBehaviour
 
                 //So that the mf shooting can work
                 holdingGun = true;
-                Shoot();
+                //Shoot();
 
             }
                 //if (hit.collider.CompareTag("Gun"))
