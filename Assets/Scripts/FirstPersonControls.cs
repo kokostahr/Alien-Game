@@ -36,7 +36,7 @@ public class FirstPersonControls : MonoBehaviour
     [Header("STABBING SETTINGS")]
     [Space(5)]
     public float stabSpeed = 15f;
-    private bool holdingKnife = false;
+    //private bool holdingKnife = false;
 
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
@@ -201,7 +201,7 @@ public class FirstPersonControls : MonoBehaviour
     public void Shoot()                             //to adjust for different bullets;  rename projectile to different bullets and create different shoot methods for each?
 
     {
-        if (holdingGun == true && currentBullets > 0)                                  //the gun needs to work
+        if (currentBullets > 0)                                  //the gun needs to work (holdingGun == true && currentBullets > 0)
         {
             // Instantiate the projectile at the fire point
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
@@ -249,6 +249,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.rotation = holdPositionLeft.rotation;
                 heldObject.transform.parent = holdPositionLeft;
             }
+
             if (hit.collider.CompareTag("Knife"))
             {
                 // Pick up the object
@@ -260,10 +261,9 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
             }
-            else if (hit.collider.CompareTag("Gun"))
+           
+            if (hit.collider.CompareTag("Gun"))
             {
-                //So that the mf shooting can work
-                holdingGun = true;
 
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -274,7 +274,10 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
 
-                
+                //So that the mf shooting can work
+                holdingGun = true;
+                Shoot();
+
             }
                 //if (hit.collider.CompareTag("Gun"))
                 //{
