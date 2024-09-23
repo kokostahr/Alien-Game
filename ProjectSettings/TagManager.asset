@@ -9,6 +9,7 @@ TagManager:
   - Teleporter
   - Door
   - Knife
+  - Gate
   layers:
   - Default
   - TransparentFX

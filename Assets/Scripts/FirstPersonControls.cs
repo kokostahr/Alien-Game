@@ -381,6 +381,11 @@ public class FirstPersonControls : MonoBehaviour
                 // Start moving the door upwards
                 StartCoroutine(RaiseDoor(hit.collider.gameObject));
             }
+            else if (hit.collider.CompareTag("Gate")) // Check if the object is a door
+            {
+                // Start moving the door upwards
+                StartCoroutine(OpenGate(hit.collider.gameObject));
+            }
         }
     }
 
@@ -391,6 +396,30 @@ public class FirstPersonControls : MonoBehaviour
         Vector3 startPosition = door.transform.position; // Store the initial position of the door
         Vector3 endPosition = startPosition + Vector3.right * openAmount; //Calculate the final position of the door after opening
                                                                         //use left/right and position.x to move it left and right rather than up and down.
+
+        // Continue raising the door until it reaches the target height
+        while (door.transform.position.x < endPosition.x)
+        {
+            // Move the door towards the target position at the specified speed
+            door.transform.position =
+            Vector3.MoveTowards(door.transform.position, endPosition, openSpeed * Time.deltaTime);
+            yield return null; // Wait until the next frame before continuing the loop
+
+            //Need code that says after a certain amount of time the door should return to startPosition. 
+            //WaitForSeconds(5f)
+            //door.transform.position =
+            //Vector3.MoveTowards(endPosition, door.transform.position, openSpeed * Time.deltaTime);
+            //yield return null; // Wait until the next frame before continuing the loop
+        }
+    }
+
+    private IEnumerator OpenGate(GameObject door)
+    {
+        float openAmount = 20f; // The total distance the door will be opened
+        float openSpeed = 3f; // The speed at which the door will be opened
+        Vector3 startPosition = door.transform.position; // Store the initial position of the door
+        Vector3 endPosition = startPosition + Vector3.right * openAmount; //Calculate the final position of the door after opening
+                                                                          //use left/right and position.x to move it left and right rather than up and down.
 
         // Continue raising the door until it reaches the target height
         while (door.transform.position.x < endPosition.x)
