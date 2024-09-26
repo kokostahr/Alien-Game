@@ -34,25 +34,24 @@ public class UIManager : MonoBehaviour
     private IEnumerator RotateCameraCoroutine(float angle)
     {
         isRotating = true;
-        Quaternion startRotation = mainCamera.transform.rotation; // Initialrotation
-        Quaternion endRotation = startRotation * Quaternion.Euler(0, -angle, 0); //Target rotation
 
-    float rotationProgress = 0f;
+        Quaternion startRotation = mainCamera.transform.rotation; // Initial rotation of the camera
+        Quaternion endRotation = startRotation * Quaternion.Euler(0, -angle, 0); //Target rotation (where we want the camera to move to)
 
+        float rotationProgress = 0f;
         while (rotationProgress < 1f)
         {
-            rotationProgress += Time.deltaTime * (rotationSpeed / angle); //Normalize the rotation speed based on angle
-
-        mainCamera.transform.rotation = Quaternion.Lerp(startRotation,
-        endRotation, rotationProgress); // Smoothly interpolate rotation
+            rotationProgress += Time.deltaTime * (rotationSpeed / angle); //Normalize the rotation speed based on angle at
+            mainCamera.transform.rotation = Quaternion.Lerp(startRotation,endRotation, rotationProgress); // Smoothly interpolate rotation towards the left. It moves between a and b over time.
             yield return null;
         }
 
         mainCamera.transform.rotation = endRotation; // Ensure exact final rotation
-        isRotating = false;
+        isRotating = false; //The actual movement of the camera overtime.
 
         initialButton.SetActive(false);
 
+        //We make the begin button false when it is clicked and make all the other UI elements appear. 
         foreach (GameObject UIelement in UIElements)
         {
             UIelement.SetActive(true);
