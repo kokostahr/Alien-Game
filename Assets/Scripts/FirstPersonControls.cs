@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
+using TMPro; 
 public class FirstPersonControls : MonoBehaviour
 {
     [Header("MOVEMENT SETTINGS")]
@@ -57,6 +58,8 @@ public class FirstPersonControls : MonoBehaviour
     public Material switchMaterial; // Material to apply when switch is activated
     public GameObject[] objectsToChangeColor; // Array of objects to change color
 
+    [Header("UI SETTINGS")]
+    public TextMeshProUGUI pickUpText;
 
     private void Awake()
     {
@@ -434,6 +437,33 @@ public class FirstPersonControls : MonoBehaviour
             //door.transform.position =
             //Vector3.MoveTowards(endPosition, door.transform.position, openSpeed * Time.deltaTime);
             //yield return null; // Wait until the next frame before continuing the loop
+        }
+    }
+
+    private void CheckForPickUp()
+    {
+        Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+        RaycastHit hit;
+        // Perform raycast to detect objects
+        if (Physics.Raycast(ray, out hit, pickUpRange))
+        {
+            // Check if the object has the "PickUp" tag
+            if (hit.collider.CompareTag("PickUp"))
+            {
+                // Display the pick-up text
+                pickUpText.gameObject.SetActive(true);  //so the game object can text can be displayed
+                pickUpText.text = hit.collider.gameObject.name; //Make sure the name of the gameobject is the actual name you want to display
+            }
+            else
+            {
+                // Hide the pick-up text if not looking at a "PickUp" object
+                pickUpText.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // Hide the text if not looking at any object
+            pickUpText.gameObject.SetActive(false);
         }
     }
 
