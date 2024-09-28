@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using UnityEngine.SceneManagement; 
 public class UIManager : MonoBehaviour
 {
     public Camera mainCamera; // Reference to the camera (assign in the Inspector)
@@ -17,9 +18,21 @@ public class UIManager : MonoBehaviour
     {
         if (!isRotating) // Prevent triggering multiple rotations simultaneously
         {
-            StartCoroutine(RotateCameraCoroutine(90f));
+            StartCoroutine(RotateCameraCoroutine(30f));
         }
     }
+
+    public void LoadScene(string sceneName) //To load the relevant scene when you click the button.
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void QuitGame() //To exit the apllication when you click the button
+    {
+        Application.Quit();
+    }
+
+    // Coroutine to smoothly rotate the camera
 
     // Coroutine to smoothly rotate the camera
     private IEnumerator RotateCameraCoroutine(float angle)
@@ -32,7 +45,7 @@ public class UIManager : MonoBehaviour
 
         while (rotationProgress < 1f)
         {
-            rotationProgress += Time.deltaTime * (rotationSpeed / angle); //ormalize the rotation speed based on angle
+            rotationProgress += Time.deltaTime * (rotationSpeed / angle); //Normalize the rotation speed based on angle
 
         mainCamera.transform.rotation = Quaternion.Lerp(startRotation, endRotation, rotationProgress); // Smoothly interpolate rotation
             yield return null;

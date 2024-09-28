@@ -204,7 +204,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 76995684}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 495187212}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: A_BasicSetUp
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &76995684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,8 +619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d5576abe2fd6743a93b2c266302156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  rotationSpeed: 50
+  mainCamera: {fileID: 495187209}
+  rotationSpeed: 20
   UIElements:
   - {fileID: 76995681}
   - {fileID: 2098955345}
@@ -800,7 +812,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1052255399}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 495187212}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: RotateCameraLeftBy90Degrees
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1052255399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1547,7 +1571,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2098955348}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 495187212}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2098955348
 MonoBehaviour:
   m_ObjectHideFlags: 0
