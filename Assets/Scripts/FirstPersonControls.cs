@@ -62,7 +62,8 @@ public class FirstPersonControls : MonoBehaviour
     public TextMeshProUGUI pickUpText;
     //public Image healthBar;
     //public Slider health;
-    //
+    public int playerHealth = 100;
+    public int currentHealth; 
     //public float damageAmount = 0.25f; // Reduce the health bar by this amount
     //private float healAmount = 0.5f;// Fill the health bar by this amount
 
@@ -75,6 +76,7 @@ public class FirstPersonControls : MonoBehaviour
     private void Start()
     {
         currentBullets = MaxBullets;
+        currentHealth = playerHealth;
     } 
 
     private void OnEnable() //initialises and enables input actions. It listens for player input to handle, referring to the generated C# script for the action map
@@ -120,6 +122,12 @@ public class FirstPersonControls : MonoBehaviour
         Move();
         LookAround();
         ApplyGravity();
+
+        if (playerHealth < 1)
+        {
+            //need to play "you died scene"
+
+        }
     }
     public void Move()
     {
@@ -458,8 +466,9 @@ public class FirstPersonControls : MonoBehaviour
             if (hit.collider.CompareTag("PickUp"))
             {
                 // Display the pick-up text
-                pickUpText.gameObject.SetActive(true);
-                pickUpText.text = hit.collider.gameObject.name;
+                pickUpText.gameObject.SetActive(true); // DISPLAY THE TEXT
+                pickUpText.text = hit.collider.gameObject.name; //DISPLAY THE NAME OF THE GAMEOBJECT
+                Debug.Log("ACTIVATED PICKUPTEXT");
             }
             else
             {
@@ -467,31 +476,31 @@ public class FirstPersonControls : MonoBehaviour
                 pickUpText.gameObject.SetActive(false);
             }
 
-            // Check if the object has the "Gun" tag
-            if (hit.collider.CompareTag("Gun"))
-            {
-                // Display the pick-up text
-                pickUpText.gameObject.SetActive(true);
-                pickUpText.text = hit.collider.gameObject.name;
-            }
-            else
-            {
-                // Hide the pick-up text if not looking at a "Gun" object
-                pickUpText.gameObject.SetActive(false);
-            }
+            //// Check if the object has the "Gun" tag
+            //if (hit.collider.CompareTag("Gun"))
+            //{
+            //    // Display the pick-up text
+            //    pickUpText.gameObject.SetActive(true);
+            //    pickUpText.text = hit.collider.gameObject.name;
+            //}
+            //else
+            //{
+            //    // Hide the pick-up text if not looking at a "Gun" object
+            //    pickUpText.gameObject.SetActive(false);
+            //}
 
-            // Check if the object has the "Knife" tag
-            if (hit.collider.CompareTag("Knife"))
-            {
-                // Display the pick-up text
-                pickUpText.gameObject.SetActive(true);
-                pickUpText.text = "Pick Up " + hit.collider.gameObject.name;
-            }
-            else
-            {
-                // Hide the pick-up text if not looking at a "Knife" object
-                pickUpText.gameObject.SetActive(false);
-            }
+            //// Check if the object has the "Knife" tag
+            //if (hit.collider.CompareTag("Knife"))
+            //{
+            //    // Display the pick-up text
+            //    pickUpText.gameObject.SetActive(true);
+            //    pickUpText.text = "Pick Up " + hit.collider.gameObject.name;
+            //}
+            //else
+            //{
+            //    // Hide the pick-up text if not looking at a "Knife" object
+            //    pickUpText.gameObject.SetActive(false);
+            //}
 
         }
         else
@@ -500,6 +509,7 @@ public class FirstPersonControls : MonoBehaviour
             pickUpText.gameObject.SetActive(false);
         }
     }
+
 
 
 
