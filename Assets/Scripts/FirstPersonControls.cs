@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 using TMPro;
+using UnityEngine.UI;
+
 public class FirstPersonControls : MonoBehaviour
 {
     [Header("MOVEMENT SETTINGS")]
@@ -60,9 +62,10 @@ public class FirstPersonControls : MonoBehaviour
 
     [Header("UI SETTINGS")]
     public TextMeshProUGUI pickUpText;
+    public TextMeshProUGUI healthCount;
     //public Image healthBar;
-    //public Slider health;
-    public int playerHealth = 100;
+    public Slider playerHealthBar;
+    public int playerTotalHealth = 100;
     public int currentHealth; 
     //public float damageAmount = 0.25f; // Reduce the health bar by this amount
     //private float healAmount = 0.5f;// Fill the health bar by this amount
@@ -76,7 +79,12 @@ public class FirstPersonControls : MonoBehaviour
     private void Start()
     {
         currentBullets = MaxBullets;
-        currentHealth = playerHealth;
+        currentHealth = playerTotalHealth;
+
+        playerHealthBar.maxValue = playerTotalHealth; //maximum value that the healthbar will display
+        playerHealthBar.value = currentHealth; //The updating currentvalue of the player's health when they are injured and etc...
+
+        healthCount.text = "Health = " + currentHealth.ToString();
     } 
 
     private void OnEnable() //initialises and enables input actions. It listens for player input to handle, referring to the generated C# script for the action map
@@ -123,9 +131,12 @@ public class FirstPersonControls : MonoBehaviour
         LookAround();
         ApplyGravity();
 
-        if (playerHealth < 1)
+        playerHealthBar.value = currentHealth;
+
+        if (currentHealth < 1)
         {
             //need to play "you died scene"
+            Debug.Log("You died");
 
         }
     }
