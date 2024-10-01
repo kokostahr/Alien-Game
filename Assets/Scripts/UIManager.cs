@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     {
         if (!isRotating) // Prevent triggering multiple rotations simultaneously
         {
-            StartCoroutine(RotateCameraCoroutine(30f));
+            StartCoroutine(RotateCameraCoroutine(15f));
         }
     }
 
