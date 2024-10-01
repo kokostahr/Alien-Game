@@ -16,7 +16,7 @@ public class FirstPersonControls : MonoBehaviour
     public float gravity = -9.81f; // Gravity value
     public float jumpHeight = 1.0f; // Height of the jump
     public float jumpLimit = 2f; //Eish, trying to limit the jumps  (made it accessible in inspector for trial and error)
-    public float timesJumped;
+    public float timesJumped; //Checking how many times the player has jumped
     public Transform playerCamera; // Reference to the player's camera
                                    // Private variables to store input values and the character controller
     private Vector2 moveInput; // Stores the movement input from the player
@@ -35,6 +35,10 @@ public class FirstPersonControls : MonoBehaviour
     private bool holdingGun = false;
     public int MaxBullets = 10;
     private int currentBullets;
+    //Need the UI FOR THE AMMO AND STUFF
+    public GameObject ammoUi;  //Game object of the whole GunAmmo UI
+    public TextMeshProUGUI ammoCount; //Updating text that indicates how much ammo is left
+    public GameObject ammoInstruct; //Text that is displayed when the ammo runs out instructing players to reload their gun
 
     [Header("STABBING SETTINGS")]
     [Space(5)]
@@ -59,16 +63,22 @@ public class FirstPersonControls : MonoBehaviour
     [Space(5)]
     public Material switchMaterial; // Material to apply when switch is activated
     public GameObject[] objectsToChangeColor; // Array of objects to change color
+    //UI FOR THE GATE INTERACTION 
+    public GameObject gateInteractionText; //Object of the text that we want to turn on and off
 
     [Header("UI SETTINGS")]
-    public TextMeshProUGUI pickUpText;
-    public TextMeshProUGUI healthCount;
-    //public Image healthBar;
-    public Slider playerHealthBar;
-    public int playerTotalHealth = 100;
-    public int currentHealth; 
+    [Space(5)]
+    public TextMeshProUGUI pickUpText; //Text of the pick up interaction
+    public TextMeshProUGUI healthCount; //Text that will display the player's current health
+    public Slider playerHealthBar; //Self explanatory...player's healthbar
+    public int playerTotalHealth = 100;  //Total health the player begins with
+    public int currentHealth;  //Their updating health when injured by enemies
+
     //public float damageAmount = 0.25f; // Reduce the health bar by this amount
     //private float healAmount = 0.5f;// Fill the health bar by this amount
+
+    
+
 
     private void Awake()
     {
@@ -79,12 +89,14 @@ public class FirstPersonControls : MonoBehaviour
     private void Start()
     {
         currentBullets = MaxBullets;
+        //ammoCount.text = "Ammo = " + currentBullets.ToString();
+
         currentHealth = playerTotalHealth;
 
         playerHealthBar.maxValue = playerTotalHealth; //maximum value that the healthbar will display
         playerHealthBar.value = currentHealth; //The updating currentvalue of the player's health when they are injured and etc...
 
-        healthCount.text = "Health = " + currentHealth.ToString();
+        //healthCount.text = "Health = " + currentHealth.ToString();
     } 
 
     private void OnEnable() //initialises and enables input actions. It listens for player input to handle, referring to the generated C# script for the action map
@@ -130,6 +142,10 @@ public class FirstPersonControls : MonoBehaviour
         Move();
         LookAround();
         ApplyGravity();
+
+        //Update the text value for the ammo and the health every frame
+        ammoCount.text = "Ammo = " + currentBullets.ToString();
+        healthCount.text = "Health = " + currentHealth.ToString();
 
         playerHealthBar.value = currentHealth;
 
@@ -240,7 +256,26 @@ public class FirstPersonControls : MonoBehaviour
                                                                         // Destroy the projectile after 3 seconds
             Destroy(projectile, 3f);
 
-            currentBullets--;
+            currentBullets--;  
+
+            if (currentBullets == 0) //when the bullets run out--
+            {
+                //--display the instruction to reload gun
+                ammoInstruct.SetActive(true);
+            }
+        }
+
+    }
+
+    public void ReloadGun() //function that will reload the gun when the reload button is pressed.
+    {
+        if (currentBullets == 0)
+        {
+            //hide the instruction text after some seconds
+            ammoInstruct.SetActive(false);
+
+            //need code that says when the player presses the button, then refill the bullets
+            currentBullets = MaxBullets;
         }
     }
 
@@ -252,6 +287,9 @@ public class FirstPersonControls : MonoBehaviour
             heldObject.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
             heldObject.transform.parent = null;
             holdingGun = false;
+            //Hide the UI STUFF for the gun
+            ammoUi.SetActive(false);
+
         }
 
         // Perform a raycast from the camera's position forward
@@ -291,6 +329,8 @@ public class FirstPersonControls : MonoBehaviour
            
             if (hit.collider.CompareTag("Gun"))
             {
+                //Display the UI STUFF for the gun
+                ammoUi.SetActive(true);
 
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -303,45 +343,9 @@ public class FirstPersonControls : MonoBehaviour
 
                 //So that the mf shooting can work
                 holdingGun = true;
-                //Shoot();
 
-            }
-                //if (hit.collider.CompareTag("Gun"))
-                //{
-
-                //    // Pick up the object
-                //    heldObject = hit.collider.gameObject;
-                //    heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
-
-                //    // Attach the object to the RIGHT hold position
-                //    heldObject.transform.position = holdPositionRight.position;
-                //    heldObject.transform.rotation = holdPositionRight.rotation;
-                //    heldObject.transform.parent = holdPositionRight;
-
-                //    holdingGun = true;
-                //    //Make sure the knife gets dropped
-                //    holdingKnife = false;
-                //    Debug.Log("BAngBang");
-                //}
-                //else if (hit.collider.CompareTag("Knife"))
-                //{
-
-
-                //    // Pick up the object
-                //    heldObject = hit.collider.gameObject;
-                //    heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
-
-                //    // Attach the object to the RIGHT hold position
-                //    heldObject.transform.position = holdPositionRight.position;
-                //    heldObject.transform.rotation = holdPositionRight.rotation;
-                //    heldObject.transform.parent = holdPositionRight;
-
-                //    holdingKnife = true;
-                //    //Make sure the gun is dropped
-                //    holdingGun = false;
-                //    Debug.Log("Stabstab");
-                //}
-            }
+            }    
+        }
     }
 
     public void ToggleCrouch()
@@ -391,6 +395,9 @@ public class FirstPersonControls : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
+            //Display the interaction text to guide players on what to press
+            gateInteractionText.SetActive(true);
+
             if (hit.collider.CompareTag("Switch")) // Assuming the switch has this tag
             {
                 // Change the material color of the objects in the array
@@ -408,11 +415,14 @@ public class FirstPersonControls : MonoBehaviour
                 // Start moving the door upwards
                 StartCoroutine(RaiseDoor(hit.collider.gameObject));
             }
-            else if (hit.collider.CompareTag("Gate")) // Check if the object is a door
+            else if (hit.collider.CompareTag("Gate")) // Check if the object is a gate
             {
                 // Start moving the door upwards
                 StartCoroutine(OpenGate(hit.collider.gameObject));
             }
+
+            //Hide interaction text after the stuff has been pressed
+            gateInteractionText.SetActive(false);
         }
     }
 
