@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     private GameObject player;
 
     [Header("ENEMY HEALTH SETTINGS")]
+    [Space(5)]
     public TextMeshProUGUI enemyHealthCount;
     //public Image healthBar;
     public Slider enemyHealthBar; //Health Bar Status For the enemy
@@ -21,7 +22,11 @@ public class EnemyController : MonoBehaviour
     //public float damageAmount = 0.25f; // Reduce the health bar by this amount
     //private float healAmount = 0.5f;// Fill the health bar by this amount
 
-    
+    [Header("ENEMY SHOOTING")]
+    [Space(5)]
+    [SerializeField] GameObject enemyBullet; //Calling the game object for the enemy bullet
+    public float fireRate; //The rate at which the enemy will fire the bullet (every _ seconds)
+    public float nextFire; //When the enemy should fire their bullet again
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +38,11 @@ public class EnemyController : MonoBehaviour
        
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        //Setting Up the Shooting enemy bullets
+        //fireRate = 3f;
+        nextFire = Time.time;
+
     }
 
     // Update is called once per frame
@@ -40,6 +50,18 @@ public class EnemyController : MonoBehaviour
     {
         enemyHealthBar.value = emycurrentHealth;
         enemyHealthCount.text = "Health " + emycurrentHealth.ToString(); //Update the value of the enemy Health
+
+        //Call the method to let the enemy check if they need to fire or not
+        CheckIfTimeToFire();
+    }
+
+    public void CheckIfTimeToFire()
+    {
+        if(Time.time > nextFire)
+        {
+            Instantiate(enemyBullet, this.transform.position, Quaternion.identity);
+            nextFire = Time.time + fireRate;   
+        }
     }
 
     public void EnemyTakesDamage (int damageToTake)
@@ -52,7 +74,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision) //When the player walks into the enemy, they will take damage
     {
         if (collision.gameObject.tag == "Player")
         {
