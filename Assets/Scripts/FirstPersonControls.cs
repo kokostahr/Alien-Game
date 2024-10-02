@@ -68,7 +68,7 @@ public class FirstPersonControls : MonoBehaviour
 
     [Header("UI SETTINGS")]
     [Space(5)]
-    public TextMeshProUGUI pickUpText; //Text of the pick up interaction
+    public GameObject pickUpText; //Text of the pick up interaction
     public TextMeshProUGUI healthCount; //Text that will display the player's current health
     public Slider playerHealthBar; //Self explanatory...player's healthbar
     public int playerTotalHealth = 100;  //Total health the player begins with
@@ -302,6 +302,13 @@ public class FirstPersonControls : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
+
+            //Once the raycast hits, pickUp text should display
+            //if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Gun"))
+            //{
+            //    pickUpText.SetActive(true);
+            //}
+
             // Check if the hit object has the tag "PickUp"
             if (hit.collider.CompareTag("PickUp"))
             {
@@ -313,6 +320,10 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.position = holdPositionLeft.position;
                 heldObject.transform.rotation = holdPositionLeft.rotation;
                 heldObject.transform.parent = holdPositionLeft;
+
+                //Make sure the pickuptext disappears after the object has been picked up
+                pickUpText.SetActive(false);
+
             }
 
             if (hit.collider.CompareTag("Knife"))
@@ -325,6 +336,9 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.position = holdPositionRight.position;
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
+
+                //Make sure the pickuptext disappears after the object has been picked up
+                pickUpText.SetActive(false);
             }
            
             if (hit.collider.CompareTag("Gun"))
@@ -343,6 +357,9 @@ public class FirstPersonControls : MonoBehaviour
 
                 //So that the mf shooting can work
                 holdingGun = true;
+
+                //Make sure the pickuptext disappears after the object has been picked up
+                pickUpText.SetActive(false);
 
             }    
         }
@@ -410,19 +427,24 @@ public class FirstPersonControls : MonoBehaviour
                     }
                 }
             }
-            else if (hit.collider.CompareTag("Door")) // Check if the object is a door
+            else if (hit.collider.CompareTag("Door")) // Check if the object is a gate
             {
                 // Start moving the door upwards
                 StartCoroutine(RaiseDoor(hit.collider.gameObject));
+
+                //Hide interaction text after the stuff has been pressed
+                //gateInteractionText.SetActive(false)
             }
             else if (hit.collider.CompareTag("Gate")) // Check if the object is a gate
             {
                 // Start moving the door upwards
                 StartCoroutine(OpenGate(hit.collider.gameObject));
+
+                //Hide interaction text after the stuff has been pressed
+                //gateInteractionText.SetActive(false)
             }
 
-            //Hide interaction text after the stuff has been pressed
-            gateInteractionText.SetActive(false);
+            ;
         }
     }
 
@@ -473,7 +495,7 @@ public class FirstPersonControls : MonoBehaviour
             //yield return null; // Wait until the next frame before continuing the loop
         }
     }
-    
+
     //Going to modify this accordingly to include triggers for V/O, Object triggers
     private void CheckForPickUp()
     {
@@ -484,11 +506,11 @@ public class FirstPersonControls : MonoBehaviour
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
             // Check if the object has the "PickUp" tag
-            if (hit.collider.CompareTag("PickUp"))
+            if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Gun"))
             {
                 // Display the pick-up text
                 pickUpText.gameObject.SetActive(true); // DISPLAY THE TEXT
-                pickUpText.text = hit.collider.gameObject.name; //DISPLAY THE NAME OF THE GAMEOBJECT
+                //pickUpText.text = hit.collider.gameObject.name; //DISPLAY THE NAME OF THE GAMEOBJECT
                 Debug.Log("ACTIVATED PICKUPTEXT");
             }
             else
@@ -496,33 +518,6 @@ public class FirstPersonControls : MonoBehaviour
                 // Hide the pick-up text if not looking at a "PickUp" object
                 pickUpText.gameObject.SetActive(false);
             }
-
-            //// Check if the object has the "Gun" tag
-            //if (hit.collider.CompareTag("Gun"))
-            //{
-            //    // Display the pick-up text
-            //    pickUpText.gameObject.SetActive(true);
-            //    pickUpText.text = hit.collider.gameObject.name;
-            //}
-            //else
-            //{
-            //    // Hide the pick-up text if not looking at a "Gun" object
-            //    pickUpText.gameObject.SetActive(false);
-            //}
-
-            //// Check if the object has the "Knife" tag
-            //if (hit.collider.CompareTag("Knife"))
-            //{
-            //    // Display the pick-up text
-            //    pickUpText.gameObject.SetActive(true);
-            //    pickUpText.text = "Pick Up " + hit.collider.gameObject.name;
-            //}
-            //else
-            //{
-            //    // Hide the pick-up text if not looking at a "Knife" object
-            //    pickUpText.gameObject.SetActive(false);
-            //}
-
         }
         else
         {
@@ -532,6 +527,31 @@ public class FirstPersonControls : MonoBehaviour
     }
 
 
+    //// Check if the object has the "Gun" tag
+    //if (hit.collider.CompareTag("Gun"))
+    //{
+    //    // Display the pick-up text
+    //    pickUpText.gameObject.SetActive(true);
+    //    pickUpText.text = hit.collider.gameObject.name;
+    //}
+    //else
+    //{
+    //    // Hide the pick-up text if not looking at a "Gun" object
+    //    pickUpText.gameObject.SetActive(false);
+    //}
+
+    //// Check if the object has the "Knife" tag
+    //if (hit.collider.CompareTag("Knife"))
+    //{
+    //    // Display the pick-up text
+    //    pickUpText.gameObject.SetActive(true);
+    //    pickUpText.text = "Pick Up " + hit.collider.gameObject.name;
+    //}
+    //else
+    //{
+    //    // Hide the pick-up text if not looking at a "Knife" object
+    //    pickUpText.gameObject.SetActive(false);
+    //}
 
 
 }
