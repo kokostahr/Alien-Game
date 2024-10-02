@@ -322,7 +322,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.parent = holdPositionLeft;
 
                 //Make sure the pickuptext disappears after the object has been picked up
-                pickUpText.SetActive(false);
+                //pickUpText.SetActive(false);
 
             }
 
@@ -338,7 +338,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.parent = holdPositionRight;
 
                 //Make sure the pickuptext disappears after the object has been picked up
-                pickUpText.SetActive(false);
+                //pickUpText.SetActive(false);
             }
            
             if (hit.collider.CompareTag("Gun"))
@@ -359,7 +359,7 @@ public class FirstPersonControls : MonoBehaviour
                 holdingGun = true;
 
                 //Make sure the pickuptext disappears after the object has been picked up
-                pickUpText.SetActive(false);
+                //pickUpText.SetActive(false);
 
             }    
         }
