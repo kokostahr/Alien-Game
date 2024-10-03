@@ -142,6 +142,7 @@ public class FirstPersonControls : MonoBehaviour
         Move();
         LookAround();
         ApplyGravity();
+        CheckForPickUp();
 
         //Update the text value for the ammo and the health every frame
         ammoCount.text = "Ammo = " + currentBullets.ToString();
