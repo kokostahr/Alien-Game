@@ -324,7 +324,6 @@ public class FirstPersonControls : MonoBehaviour
 
                 //Make sure the pickuptext disappears after the object has been picked up
                 //pickUpText.SetActive(false);
-
             }
 
             if (hit.collider.CompareTag("Knife"))
@@ -361,7 +360,6 @@ public class FirstPersonControls : MonoBehaviour
 
                 //Make sure the pickuptext disappears after the object has been picked up
                 //pickUpText.SetActive(false);
-
             }    
         }
     }
@@ -414,7 +412,7 @@ public class FirstPersonControls : MonoBehaviour
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
             //Display the interaction text to guide players on what to press
-            gateInteractionText.SetActive(true);
+            //gateInteractionText.SetActive(true);
 
             if (hit.collider.CompareTag("Switch")) // Assuming the switch has this tag
             {
@@ -511,8 +509,31 @@ public class FirstPersonControls : MonoBehaviour
             {
                 // Display the pick-up text
                 pickUpText.gameObject.SetActive(true); // DISPLAY THE TEXT
-                //pickUpText.text = hit.collider.gameObject.name; //DISPLAY THE NAME OF THE GAMEOBJECT
+                //pickUpText.text = hit.collider.gameObject.name; //this DISPLAYs THE actual NAME OF THE GAMEOBJECT
                 Debug.Log("ACTIVATED PICKUPTEXT");
+            }
+            else
+            {
+                // Hide the pick-up text if not looking at a "PickUp" object
+                pickUpText.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // Hide the text if not looking at any object
+            pickUpText.gameObject.SetActive(false);
+        }
+
+        // Perform raycast to detect the gate
+        if (Physics.Raycast(ray, out hit, pickUpRange))
+        {
+            // Check if the object has the "PickUp" tag
+            if (hit.collider.CompareTag("Gate") || hit.collider.CompareTag("Door"))
+            {
+                // Display the gate interaction text
+                gateInteractionText.SetActive(true);
+                //pickUpText.text = hit.collider.gameObject.name; 
+                Debug.Log("ACTIVATED OPENGATE");
             }
             else
             {
