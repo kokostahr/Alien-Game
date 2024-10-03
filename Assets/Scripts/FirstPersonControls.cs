@@ -538,13 +538,13 @@ public class FirstPersonControls : MonoBehaviour
             else
             {
                 // Hide the pick-up text if not looking at a "PickUp" object
-                pickUpText.gameObject.SetActive(false);
+                gateInteractionText.SetActive(false);
             }
         }
         else
         {
             // Hide the text if not looking at any object
-            pickUpText.gameObject.SetActive(false);
+            gateInteractionText.SetActive(false);
         }
     }
 
