@@ -74,10 +74,11 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision collision) //When the player walks into the enemy, they will take damage
+    public void OnTriggerEnter(Collision col) //When the player walks into the enemy, they will take damage
     {
-        if (collision.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player")
         {
+            Debug.Log("Ouchie!");
             FindObjectOfType<FirstPersonControls>().currentHealth -= enemyDamageAmount;
         }
     }
