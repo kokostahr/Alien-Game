@@ -19,9 +19,8 @@ public class EnemyController : MonoBehaviour
     public int enemyTotalHealth = 100; //Health Enemy will start with
     public int enemyDamageAmount; //Allowing enemies to do different damage amounts to the player
     public int emycurrentHealth;
-
-    //public float damageAmount = 0.25f; // Reduce the health bar by this amount
-    //private float healAmount = 0.5f;// Fill the health bar by this amount
+    //Calling the FirstPersonController to access the player's health
+    public FirstPersonControls firstPersonControls;
 
     [Header("ENEMY SHOOTING")]
     [Space(5)]
@@ -70,7 +69,7 @@ public class EnemyController : MonoBehaviour
     {
         emycurrentHealth -= damageToTake;
 
-        if (emycurrentHealth <= 0)
+        if (emycurrentHealth == 0)
         {
             Destroy(this.gameObject);
         }
@@ -81,7 +80,8 @@ public class EnemyController : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             Debug.Log("Ouchie!");
-            FindObjectOfType<FirstPersonControls>().currentHealth -= enemyDamageAmount;
+            //FindObjectOfType<FirstPersonControls>().currentHealth -= enemyDamageAmount;
+            firstPersonControls.currentHealth -= enemyDamageAmount;
         }
     }
 
