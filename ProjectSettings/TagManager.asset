@@ -10,6 +10,7 @@ TagManager:
   - Door
   - Knife
   - Gate
+  - Enemy
   layers:
   - Default
   - TransparentFX
