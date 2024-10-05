@@ -39,6 +39,10 @@ public class FirstPersonControls : MonoBehaviour
     public GameObject ammoUi;  //Game object of the whole GunAmmo UI
     public TextMeshProUGUI ammoCount; //Updating text that indicates how much ammo is left
     public GameObject ammoInstruct; //Text that is displayed when the ammo runs out instructing players to reload their gun
+    //DEFINING THE VARIABLES FOR THE BULLET DAMAGE
+    public int playerBulletDamage; //The amount of damage the player's bullet will do to the enemies
+    private GameObject enemy; //Calling the enemy so that its not confusing.
+    public EnemyController enemyController; //Calling the enemy controller so we can access the enemy's health 
 
     [Header("STABBING SETTINGS")]
     [Space(5)]
@@ -97,6 +101,9 @@ public class FirstPersonControls : MonoBehaviour
         playerHealthBar.value = currentHealth; //The updating currentvalue of the player's health when they are injured and etc...
 
         //healthCount.text = "Health = " + currentHealth.ToString();
+
+        //As stated above, calling the enemy within start for the bullets to have an effect on the enemy's health.
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
     } 
 
     private void OnEnable() //initialises and enables input actions. It listens for player input to handle, referring to the generated C# script for the action map
@@ -142,7 +149,7 @@ public class FirstPersonControls : MonoBehaviour
         Move();
         LookAround();
         ApplyGravity();
-        CheckForPickUp();
+        CheckForInteractionTrigger();
 
         //Update the text value for the ammo and the health every frame
         ammoCount.text = "Ammo = " + currentBullets.ToString();
@@ -277,6 +284,18 @@ public class FirstPersonControls : MonoBehaviour
 
             //need code that says when the player presses the button, then refill the bullets
             currentBullets = MaxBullets;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("KILL 'EM");
+            if (enemy !=null)
+            {
+                enemyController.emycurrentHealth -= playerBulletDamage; //reduce enemy healths
+            }
         }
     }
 
@@ -496,7 +515,7 @@ public class FirstPersonControls : MonoBehaviour
     }
 
     //Going to modify this accordingly to include triggers for V/O, Object triggers
-    private void CheckForPickUp()
+    private void CheckForInteractionTrigger()
     {
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         RaycastHit hit;
@@ -527,7 +546,7 @@ public class FirstPersonControls : MonoBehaviour
         // Perform raycast to detect the gate
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
-            // Check if the object has the "PickUp" tag
+            // Check if the object has the "Gate" or "Door" tag
             if (hit.collider.CompareTag("Gate") || hit.collider.CompareTag("Door"))
             {
                 // Display the gate interaction text
@@ -537,7 +556,7 @@ public class FirstPersonControls : MonoBehaviour
             }
             else
             {
-                // Hide the pick-up text if not looking at a "PickUp" object
+                // Hide the gateopening text if not looking at a "Gate" or "Door" object
                 gateInteractionText.SetActive(false);
             }
         }
@@ -549,31 +568,5 @@ public class FirstPersonControls : MonoBehaviour
     }
 
 
-    //// Check if the object has the "Gun" tag
-    //if (hit.collider.CompareTag("Gun"))
-    //{
-    //    // Display the pick-up text
-    //    pickUpText.gameObject.SetActive(true);
-    //    pickUpText.text = hit.collider.gameObject.name;
-    //}
-    //else
-    //{
-    //    // Hide the pick-up text if not looking at a "Gun" object
-    //    pickUpText.gameObject.SetActive(false);
-    //}
-
-    //// Check if the object has the "Knife" tag
-    //if (hit.collider.CompareTag("Knife"))
-    //{
-    //    // Display the pick-up text
-    //    pickUpText.gameObject.SetActive(true);
-    //    pickUpText.text = "Pick Up " + hit.collider.gameObject.name;
-    //}
-    //else
-    //{
-    //    // Hide the pick-up text if not looking at a "Knife" object
-    //    pickUpText.gameObject.SetActive(false);
-    //}
-
-
+   
 }

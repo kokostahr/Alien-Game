@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BulletDamage : MonoBehaviour
 {
-    [Header("BULLET SETTINGS")]
+    [Header("ENEMY SHOOTING SETTINGS")]
     [Space(5)]
     public int enemyBulletDamage;
     public float enemyBulletSpeed;
 
     Rigidbody bulletRb; //Calling the rigidbody on the enemy bullet
     GameObject target; //Where\who we want the bullet to be shot at
-    FirstPersonControls playerCurrentHealth; //Calling the FPControls script here to access the player's current health
-    Vector3 moveDirection;
+    FirstPersonControls firstPersonControls; //Calling the FPControls script here to access the player's current health
+    Vector3 moveDirection; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,11 +22,11 @@ public class BulletDamage : MonoBehaviour
         
         if (target != null)
         {
-            playerCurrentHealth = target.GetComponent<FirstPersonControls>();
+            firstPersonControls = target.GetComponent<FirstPersonControls>();
         }
         moveDirection = (target.transform.position - transform.position).normalized * enemyBulletSpeed;
         bulletRb.velocity = new Vector3(moveDirection.x, moveDirection.y, moveDirection.z);
-        Destroy(gameObject, 0.6f);
+        Destroy(this.gameObject, 2f);
     }
 
     // Update is called once per frame
@@ -35,14 +35,14 @@ public class BulletDamage : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider col)
+    private void OnTriggerEnter(Collider other)
     {
-        if (col.gameObject.name == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("YOUVE BEEN SHOT!");
             if (target != null)
             {
-                playerCurrentHealth.currentHealth = playerCurrentHealth.currentHealth - enemyBulletDamage;
+                firstPersonControls.currentHealth -= enemyBulletDamage;
             }
 
             Destroy(gameObject);    
