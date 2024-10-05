@@ -294,7 +294,7 @@ public class FirstPersonControls : MonoBehaviour
             Debug.Log("KILL 'EM");
             if (enemy !=null)
             {
-                enemyController.emycurrentHealth -= playerBulletDamage;
+                enemyController.emycurrentHealth -= playerBulletDamage; //reduce enemy healths
             }
         }
     }

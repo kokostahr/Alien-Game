@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("PLAYER SETTINGS 4 ENEMY")]
     private GameObject player;
+    
 
     [Header("ENEMY HEALTH SETTINGS")]
     [Space(5)]
@@ -71,7 +72,7 @@ public class EnemyController : MonoBehaviour
 
         if (emycurrentHealth <= 0)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 
