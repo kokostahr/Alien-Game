@@ -12,7 +12,7 @@ public class BulletDamage : MonoBehaviour
     Rigidbody bulletRb; //Calling the rigidbody on the enemy bullet
     GameObject target; //Where\who we want the bullet to be shot at
     FirstPersonControls firstPersonControls; //Calling the FPControls script here to access the player's current health
-    Vector3 moveDirection; 
+    Vector3 moveDirection; //Direction the bullet has to move in
 
     // Start is called before the first frame update
     void Start()
