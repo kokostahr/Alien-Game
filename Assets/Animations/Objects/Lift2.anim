@@ -55,17 +55,17 @@ AnimationClip:
       - serializedVersion: 3
         time: 3.0333333
         value: {x: -0.4266753, y: 1.1074656, z: 0.64400184}
-        inSlope: {x: 0, y: 0.006007513, z: 0}
-        outSlope: {x: 0, y: 0.006007513, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 5.016667
-        value: {x: -0.421, y: 1.115, z: 0.644}
-        inSlope: {x: 0.0023586461, y: 0, z: 0}
-        outSlope: {x: 0.0023586461, y: 0, z: 0}
+        time: 5.75
+        value: {x: -0.422, y: 1.095, z: 0.644}
+        inSlope: {x: 0.0023586461, y: -0.010073209, z: 0}
+        outSlope: {x: 0.0023586461, y: -0.010073209, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -165,8 +165,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 5.016667
-        value: -0.421
+        time: 5.75
+        value: -0.422
         inSlope: 0.0023586461
         outSlope: 0.0023586461
         tangentMode: 136
@@ -215,17 +215,17 @@ AnimationClip:
       - serializedVersion: 3
         time: 3.0333333
         value: 1.1074656
-        inSlope: 0.006007513
-        outSlope: 0.006007513
+        inSlope: 0
+        outSlope: 0
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 5.016667
-        value: 1.115
-        inSlope: 0
-        outSlope: 0
+        time: 5.75
+        value: 1.095
+        inSlope: -0.010073209
+        outSlope: -0.010073209
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -279,7 +279,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 5.016667
+        time: 5.75
         value: 0.644
         inSlope: 0
         outSlope: 0
