@@ -152,4 +152,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBulletDamage: 50
-  enemyBulletSpeed: 10
+  enemyBulletSpeed: 28
