@@ -129,6 +129,9 @@ public class FirstPersonControls : MonoBehaviour
         // Subscribe to the shoot input event
         playerInput.Player.Shoot.performed += ctx => Shoot(); // Call the Shoot method when shoot input is performed
 
+        // Subscribe to the shoot input event
+        //playerInput.Player.Stab.performed += ctx => Stabbing(); // Call the Stabbing method when shoot input is performed
+
         // Subscribe to the pick-up input event
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
 
@@ -289,19 +292,11 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
-    //public void OnCollisionEnter(Collision other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
-    //{
-    //    if (other.gameObject.CompareTag("Enemy"))
-    //    {
-    //        Debug.Log("KILL 'EM");
-            
-    //            enemyObject.GetComponent<EnemyController>().emycurrentHealth -= playerBulletDamage; //reduce enemy healths
-    //            //destroy the bullet after it has hit the enemy (will add a blood splash)
-    //            //Destroy(projectilePrefab, 0.5f);
-
-            
-    //    }
-    //}
+    public void Stabbing()
+    {
+        //Get the object's animator and play the animation once, only when the right-mouse button is clicked
+        //anim.SetTrigger("Active")
+    }
 
     public void PickUpObject()
     {
