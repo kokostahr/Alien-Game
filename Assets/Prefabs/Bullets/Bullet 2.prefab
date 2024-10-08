@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5129540749094562753}
   - component: {fileID: 7981606852708376103}
   - component: {fileID: -552009555490083653}
-  - component: {fileID: 2399914399991773268}
+  - component: {fileID: 9036765103638591164}
   m_Layer: 0
   m_Name: Bullet 2
   m_TagString: Untagged
@@ -29,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2602076568576693125}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6737001, y: 0.21477488, z: 0.21477492, w: 0.6737}
+  m_LocalRotation: {x: -0.6737009, y: 0.21477214, z: 0.21477214, w: 0.6737009}
   m_LocalPosition: {x: 6.5646834, y: 0.17932805, z: -2.3061173}
-  m_LocalScale: {x: 13.232882, y: 12.474655, z: 12.073657}
+  m_LocalScale: {x: 14.853105, y: 14.853101, z: 15.166771}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 35.364}
 --- !u!33 &834549160901979462
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -134,7 +134,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.01
   m_Center: {x: -0.000000003259629, y: 0.0000000032596288, z: 7.712109e-18}
---- !u!114 &2399914399991773268
+--- !u!114 &9036765103638591164
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,6 +143,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2602076568576693125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e316df3560749e34c856dd0055622352, type: 3}
+  m_Script: {fileID: 11500000, guid: c32b6482a99de844c898a336781bb3e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyObject: {fileID: 0}
+  playerBulletsDamage: 20

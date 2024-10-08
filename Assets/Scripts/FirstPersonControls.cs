@@ -40,7 +40,7 @@ public class FirstPersonControls : MonoBehaviour
     public TextMeshProUGUI ammoCount; //Updating text that indicates how much ammo is left
     public GameObject ammoInstruct; //Text that is displayed when the ammo runs out instructing players to reload their gun
     //DEFINING THE VARIABLES FOR THE BULLET DAMAGE
-    public int playerBulletDamage; //The amount of damage the player's bullet will do to the enemies
+    //public int playerBulletDamage; //The amount of damage the player's bullet will do to the enemies
     //private GameObject enemy; //Calling the enemy so that its not confusing.
     //public GameObject enemyObject; //Calling the enemy controller so we can access the enemy's health 
 
@@ -103,7 +103,7 @@ public class FirstPersonControls : MonoBehaviour
         //healthCount.text = "Health = " + currentHealth.ToString();
 
         //As stated above, calling the enemy within start for the bullets to have an effect on the enemy's health.
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        //enemy = GameObject.FindGameObjectWithTag("Enemy");
     } 
 
     private void OnEnable() //initialises and enables input actions. It listens for player input to handle, referring to the generated C# script for the action map
