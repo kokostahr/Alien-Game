@@ -14,7 +14,7 @@ public class BulletPlayerDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GameObject.FindObjectOfType<EnemyController>();
     }
 
     // Update is called once per frame
@@ -41,6 +41,8 @@ public class BulletPlayerDamage : MonoBehaviour
             Debug.Log("KILL 'EM");
             if (enemyObject != null)
             {
+                GameObject.FindObjectOfType<EnemyController>();
+                
                 enemyObject.GetComponent<EnemyController>().emycurrentHealth -= playerBulletsDamage; //reduce enemy healths
                 //destroy the bullet after it has hit the enemy (will add a blood splash)
                 //Destroy(projectilePrefab, 0.5f);
