@@ -12,7 +12,7 @@ public class BulletDamage : MonoBehaviour
     Rigidbody bulletRb; //Calling the rigidbody on the enemy bullet
     GameObject target; //Where\who we want the bullet to be shot at
     FirstPersonControls firstPersonControls; //Calling the FPControls script here to access the player's current health
-    Vector3 moveDirection; 
+    Vector3 moveDirection; //Direction the bullet has to move in
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class BulletDamage : MonoBehaviour
         }
         moveDirection = (target.transform.position - transform.position).normalized * enemyBulletSpeed;
         bulletRb.velocity = new Vector3(moveDirection.x, moveDirection.y, moveDirection.z);
-        Destroy(this.gameObject, 2f);
+        Destroy(this.gameObject, 3.5f);
     }
 
     // Update is called once per frame

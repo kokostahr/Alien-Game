@@ -19,14 +19,15 @@ public class EnemyController : MonoBehaviour
     public int enemyTotalHealth = 100; //Health Enemy will start with
     public int enemyDamageAmount; //Allowing enemies to do different damage amounts to the player
     public int emycurrentHealth;
-
-    //public float damageAmount = 0.25f; // Reduce the health bar by this amount
-    //private float healAmount = 0.5f;// Fill the health bar by this amount
+    //Calling the FirstPersonController to access the player's health
+    public FirstPersonControls firstPersonControls;
 
     [Header("ENEMY SHOOTING")]
     [Space(5)]
     [SerializeField] GameObject enemyBullet; //Calling the game object for the enemy bullet
     public Transform bulletspawnpoint;
+    //public Rigidbody enemyBulletRB; //to help the bullet move!
+    public int enemybulletSpeed;
     public float fireRate; //The rate at which the enemy will fire the bullet (every _ seconds)
     public float nextFire; //When the enemy should fire their bullet again
 
@@ -57,12 +58,15 @@ public class EnemyController : MonoBehaviour
         CheckIfTimeToFire();
     }
 
-    public void CheckIfTimeToFire()
+    public void CheckIfTimeToFire() //For Shooting their Laser Eyes
     {
         if(Time.time > nextFire)
         {
             Instantiate(enemyBullet, bulletspawnpoint.position, bulletspawnpoint.rotation);
-            nextFire = Time.time + fireRate;   
+            nextFire = Time.time + fireRate;
+
+            Rigidbody enemyBulletRB = enemyBullet.GetComponent<Rigidbody>();
+            enemyBulletRB.velocity = bulletspawnpoint.forward * enemybulletSpeed;
         }
     }
 
@@ -70,9 +74,12 @@ public class EnemyController : MonoBehaviour
     {
         emycurrentHealth -= damageToTake;
 
-        if (emycurrentHealth <= 0)
+        if (emycurrentHealth == 0)
         {
-            Destroy(this.gameObject);
+            if (this.gameObject != null)
+            {
+                Destroy(this.gameObject);
+            }     
         }
     }
 
@@ -81,7 +88,8 @@ public class EnemyController : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             Debug.Log("Ouchie!");
-            FindObjectOfType<FirstPersonControls>().currentHealth -= enemyDamageAmount;
+            //FindObjectOfType<FirstPersonControls>().currentHealth -= enemyDamageAmount;
+            firstPersonControls.currentHealth -= enemyDamageAmount;
         }
     }
 

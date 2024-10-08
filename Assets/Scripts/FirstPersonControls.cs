@@ -157,7 +157,7 @@ public class FirstPersonControls : MonoBehaviour
 
         playerHealthBar.value = currentHealth;
 
-        if (currentHealth < 1)
+        if (currentHealth == 0)
         {
             //need to play "you died scene"
             Debug.Log("You died");
@@ -272,7 +272,6 @@ public class FirstPersonControls : MonoBehaviour
                 ammoInstruct.SetActive(true);
             }
         }
-
     }
 
     public void ReloadGun() //function that will reload the gun when the reload button is pressed.
@@ -295,6 +294,9 @@ public class FirstPersonControls : MonoBehaviour
             if (enemy !=null)
             {
                 enemyController.emycurrentHealth -= playerBulletDamage; //reduce enemy healths
+                //destroy the bullet after it has hit the enemy (will add a blood splash)
+                //Destroy(projectilePrefab, 0.5f);
+
             }
         }
     }
