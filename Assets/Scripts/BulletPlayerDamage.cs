@@ -23,14 +23,28 @@ public class BulletPlayerDamage : MonoBehaviour
 
     }
 
-    public void OnCollisionEnter(Collision other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
+    //public void OnCollisionEnter(Collision other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
+    //{
+    //    if (other.gameObject.CompareTag("Enemy"))
+    //    {
+    //        Debug.Log("KILL 'EM");
+    //        enemyObject.GetComponent<EnemyController>().emycurrentHealth -= playerBulletsDamage; //reduce enemy healths
+    //        //destroy the bullet after it has hit the enemy (will add a blood splash)
+    //        //Destroy(projectilePrefab, 0.5f);
+    //    }
+    //}
+
+    public void OnTriggerEnter(Collider other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("KILL 'EM");
-            enemyObject.GetComponent<EnemyController>().emycurrentHealth -= playerBulletsDamage; //reduce enemy healths
-            //destroy the bullet after it has hit the enemy (will add a blood splash)
-            //Destroy(projectilePrefab, 0.5f);
+            if (enemyObject != null)
+            {
+                enemyObject.GetComponent<EnemyController>().emycurrentHealth -= playerBulletsDamage; //reduce enemy healths
+                //destroy the bullet after it has hit the enemy (will add a blood splash)
+                //Destroy(projectilePrefab, 0.5f);
+            }
         }
     }
 }
