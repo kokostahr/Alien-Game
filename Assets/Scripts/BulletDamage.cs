@@ -26,7 +26,7 @@ public class BulletDamage : MonoBehaviour
         }
         moveDirection = (target.transform.position - transform.position).normalized * enemyBulletSpeed;
         bulletRb.velocity = new Vector3(moveDirection.x, moveDirection.y, moveDirection.z);
-        Destroy(this.gameObject, 2f);
+        Destroy(this.gameObject, 3.5f);
     }
 
     // Update is called once per frame

@@ -26,6 +26,8 @@ public class EnemyController : MonoBehaviour
     [Space(5)]
     [SerializeField] GameObject enemyBullet; //Calling the game object for the enemy bullet
     public Transform bulletspawnpoint;
+    //public Rigidbody enemyBulletRB; //to help the bullet move!
+    public int enemybulletSpeed;
     public float fireRate; //The rate at which the enemy will fire the bullet (every _ seconds)
     public float nextFire; //When the enemy should fire their bullet again
 
@@ -56,12 +58,15 @@ public class EnemyController : MonoBehaviour
         CheckIfTimeToFire();
     }
 
-    public void CheckIfTimeToFire()
+    public void CheckIfTimeToFire() //For Shooting their Laser Eyes
     {
         if(Time.time > nextFire)
         {
             Instantiate(enemyBullet, bulletspawnpoint.position, bulletspawnpoint.rotation);
-            nextFire = Time.time + fireRate;   
+            nextFire = Time.time + fireRate;
+
+            Rigidbody enemyBulletRB = enemyBullet.GetComponent<Rigidbody>();
+            enemyBulletRB.velocity = bulletspawnpoint.forward * enemybulletSpeed;
         }
     }
 
@@ -71,7 +76,10 @@ public class EnemyController : MonoBehaviour
 
         if (emycurrentHealth == 0)
         {
-            Destroy(this.gameObject);
+            if (this.gameObject != null)
+            {
+                Destroy(this.gameObject);
+            }     
         }
     }
 
