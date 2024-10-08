@@ -142,7 +142,7 @@ public class FirstPersonControls : MonoBehaviour
         playerInput.Player.Interact.performed += ctx => Interact(); //Interact with switch
 
         // Subscribe to the reload input event
-        playerInput.Player.Interact.performed += ctx => ReloadGun(); //Interact with button
+        playerInput.Player.Reload.performed += ctx => ReloadGun(); //Interact with button
 
 
     }
