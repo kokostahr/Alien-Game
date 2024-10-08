@@ -41,8 +41,8 @@ public class FirstPersonControls : MonoBehaviour
     public GameObject ammoInstruct; //Text that is displayed when the ammo runs out instructing players to reload their gun
     //DEFINING THE VARIABLES FOR THE BULLET DAMAGE
     public int playerBulletDamage; //The amount of damage the player's bullet will do to the enemies
-    private GameObject enemy; //Calling the enemy so that its not confusing.
-    public GameObject enemyObject; //Calling the enemy controller so we can access the enemy's health 
+    //private GameObject enemy; //Calling the enemy so that its not confusing.
+    //public GameObject enemyObject; //Calling the enemy controller so we can access the enemy's health 
 
     [Header("STABBING SETTINGS")]
     [Space(5)]
@@ -286,19 +286,19 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("KILL 'EM");
+    //public void OnCollisionEnter(Collision other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
+    //{
+    //    if (other.gameObject.CompareTag("Enemy"))
+    //    {
+    //        Debug.Log("KILL 'EM");
             
-                enemyObject.GetComponent<EnemyController>().emycurrentHealth -= playerBulletDamage; //reduce enemy healths
-                //destroy the bullet after it has hit the enemy (will add a blood splash)
-                //Destroy(projectilePrefab, 0.5f);
+    //            enemyObject.GetComponent<EnemyController>().emycurrentHealth -= playerBulletDamage; //reduce enemy healths
+    //            //destroy the bullet after it has hit the enemy (will add a blood splash)
+    //            //Destroy(projectilePrefab, 0.5f);
 
             
-        }
-    }
+    //    }
+    //}
 
     public void PickUpObject()
     {
