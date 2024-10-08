@@ -42,7 +42,7 @@ public class FirstPersonControls : MonoBehaviour
     //DEFINING THE VARIABLES FOR THE BULLET DAMAGE
     public int playerBulletDamage; //The amount of damage the player's bullet will do to the enemies
     private GameObject enemy; //Calling the enemy so that its not confusing.
-    public EnemyController enemyController; //Calling the enemy controller so we can access the enemy's health 
+    public GameObject enemyObject; //Calling the enemy controller so we can access the enemy's health 
 
     [Header("STABBING SETTINGS")]
     [Space(5)]
@@ -286,18 +286,17 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
+    public void OnCollisionEnter(Collision other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("KILL 'EM");
-            if (enemy !=null)
-            {
-                enemyController.emycurrentHealth -= playerBulletDamage; //reduce enemy healths
+            
+                enemyObject.GetComponent<EnemyController>().emycurrentHealth -= playerBulletDamage; //reduce enemy healths
                 //destroy the bullet after it has hit the enemy (will add a blood splash)
                 //Destroy(projectilePrefab, 0.5f);
 
-            }
+            
         }
     }
 
