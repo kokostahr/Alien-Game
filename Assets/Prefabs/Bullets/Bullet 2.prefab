@@ -146,5 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32b6482a99de844c898a336781bb3e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyObject: {fileID: 0}
+  enemyObject: {fileID: 6911721043372555162, guid: eb2a433b0458fe14486b24e651462dd0,
+    type: 3}
   playerBulletsDamage: 20
