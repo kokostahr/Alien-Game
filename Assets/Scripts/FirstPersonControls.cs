@@ -40,9 +40,9 @@ public class FirstPersonControls : MonoBehaviour
     public TextMeshProUGUI ammoCount; //Updating text that indicates how much ammo is left
     public GameObject ammoInstruct; //Text that is displayed when the ammo runs out instructing players to reload their gun
     //DEFINING THE VARIABLES FOR THE BULLET DAMAGE
-    public int playerBulletDamage; //The amount of damage the player's bullet will do to the enemies
-    private GameObject enemy; //Calling the enemy so that its not confusing.
-    public EnemyController enemyController; //Calling the enemy controller so we can access the enemy's health 
+    //public int playerBulletDamage; //The amount of damage the player's bullet will do to the enemies
+    //private GameObject enemy; //Calling the enemy so that its not confusing.
+    //public GameObject enemyObject; //Calling the enemy controller so we can access the enemy's health 
 
     [Header("STABBING SETTINGS")]
     [Space(5)]
@@ -103,7 +103,7 @@ public class FirstPersonControls : MonoBehaviour
         //healthCount.text = "Health = " + currentHealth.ToString();
 
         //As stated above, calling the enemy within start for the bullets to have an effect on the enemy's health.
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        //enemy = GameObject.FindGameObjectWithTag("Enemy");
     } 
 
     private void OnEnable() //initialises and enables input actions. It listens for player input to handle, referring to the generated C# script for the action map
@@ -129,6 +129,9 @@ public class FirstPersonControls : MonoBehaviour
         // Subscribe to the shoot input event
         playerInput.Player.Shoot.performed += ctx => Shoot(); // Call the Shoot method when shoot input is performed
 
+        // Subscribe to the shoot input event
+        //playerInput.Player.Stab.performed += ctx => Stabbing(); // Call the Stabbing method when shoot input is performed
+
         // Subscribe to the pick-up input event
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
 
@@ -140,6 +143,9 @@ public class FirstPersonControls : MonoBehaviour
 
         // Subscribe to the interact input event
         playerInput.Player.Interact.performed += ctx => Interact(); //Interact with switch
+
+        // Subscribe to the reload input event
+        playerInput.Player.Reload.performed += ctx => ReloadGun(); //Interact with button
 
 
     }
@@ -286,19 +292,10 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
+    public void Stabbing()
     {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("KILL 'EM");
-            if (enemy !=null)
-            {
-                enemyController.emycurrentHealth -= playerBulletDamage; //reduce enemy healths
-                //destroy the bullet after it has hit the enemy (will add a blood splash)
-                //Destroy(projectilePrefab, 0.5f);
-
-            }
-        }
+        //Get the object's animator and play the animation once, only when the right-mouse button is clicked
+        //anim.SetTrigger("Active")
     }
 
     public void PickUpObject()
