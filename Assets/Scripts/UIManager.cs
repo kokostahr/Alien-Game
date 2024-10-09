@@ -4,14 +4,47 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using TMPro;
+
 public class UIManager : MonoBehaviour
 {
+
+    [Header("MAINMENU UI SETUP")]
+    [Space(5)]
     public Camera mainCamera; // Reference to the camera (assign in the Inspector)
     public float rotationSpeed = 1f; // Speed at which the camera rotates
     private bool isRotating = false; // Track if the camera is currently rotating
     public GameObject[] UIElements;
     public GameObject initialButton;
+
+    [Header("COUNTDOWN TIMER SETTNGS")]
+    [Space(5)]
+    //UI SETUP FOR THE COUNTDOWN
+    public string  levelToLoad; //A string so we can put the name of the scene we want to load. 
+    public TextMeshProUGUI countDownTimer;  //Text that will display the countdown timer
+    public float timeRemaining = 300f; //Amount of time remaining in game, in seconds. 
+
+    private void Update()
+    {
+        timeRemaining -= Time.deltaTime;
+        //Dividing the time into mins and seconds
+        int minutes = Mathf.FloorToInt(timeRemaining / 60);
+        int seconds = Mathf.FloorToInt(timeRemaining % 60);
+        //Setting the timer into mintues and seconds format
+        countDownTimer.text = "Time Remaining = " + string.Format( "{0:00}:{1:00}", minutes, seconds); 
+
+        //CHANGING THE COLOUR OF THE TEXT AT THE LAST MINUTE
+        if (timeRemaining <= 60)
+        {
+            countDownTimer.color = Color.red;
+        }
+
+        if (timeRemaining <= 0)
+        {
+            SceneManager.LoadScene(levelToLoad);
+        }
+    }
 
     // Method to rotate the camera left by 90 degrees
     public void RotateCameraLeftBy90Degrees()
@@ -31,8 +64,6 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
-
-    // Coroutine to smoothly rotate the camera
 
     // Coroutine to smoothly rotate the camera
     private IEnumerator RotateCameraCoroutine(float angle)
