@@ -47,7 +47,7 @@ public class FirstPersonControls : MonoBehaviour
     [Header("STABBING SETTINGS")]
     [Space(5)]
     public float stabSpeed = 15f;
-    //private bool holdingKnife = false;
+    private bool holdingKnife = false;
 
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
@@ -299,7 +299,11 @@ public class FirstPersonControls : MonoBehaviour
     public void Stabbing()
     {
         //Get the object's animator and play the animation once, only when the right-mouse button is clicked
-        //anim.SetTrigger("Active")
+        if (holdingKnife == true)
+        {
+            //anim.SetTrigger("Active")
+        }
+
     }
 
     public void PickUpObject()
@@ -310,6 +314,7 @@ public class FirstPersonControls : MonoBehaviour
             heldObject.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
             heldObject.transform.parent = null;
             holdingGun = false;
+            holdingKnife = false;
             //Hide the UI STUFF for the gun
             ammoUi.SetActive(false);
 
@@ -351,6 +356,8 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.position = holdPositionRight.position;
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
+
+                holdingKnife = true;
 
                 //Make sure the pickuptext disappears after the object has been picked up
                 //pickUpText.SetActive(false);
