@@ -47,10 +47,7 @@ public class FirstPersonControls : MonoBehaviour
     [Header("STABBING SETTINGS")]
     [Space(5)]
     public float stabSpeed = 15f;
-    private bool holdingKnife = false;
-    //Calling an animator for the different knives
-    public Animator throwAnim;
-    public Animator swordAnim;
+    //private bool holdingKnife = false;
 
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
@@ -137,7 +134,7 @@ public class FirstPersonControls : MonoBehaviour
         playerInput.Player.Shoot.performed += ctx => Shoot(); // Call the Shoot method when shoot input is performed
 
         // Subscribe to the shoot input event
-        //playerInput.Player.Stabbing.performed += ctx => Stabb(); // Call the Stabbing method when shoot input is performed
+        //playerInput.Player.Stab.performed += ctx => Stabbing(); // Call the Stabbing method when shoot input is performed
 
         // Subscribe to the pick-up input event
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
@@ -299,15 +296,11 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
-    //public void Stabb()
-    //{
-    //    //Get the object's animator and play the animation once, only when the right-mouse button is clicked
-    //    if (holdingKnife == true)
-    //    {
-    //        swordAnim.SetTrigger("Active");
-    //    }
-
-    //}
+    public void Stabbing()
+    {
+        //Get the object's animator and play the animation once, only when the right-mouse button is clicked
+        //anim.SetTrigger("Active")
+    }
 
     public void PickUpObject()
     {
@@ -317,8 +310,6 @@ public class FirstPersonControls : MonoBehaviour
             heldObject.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
             heldObject.transform.parent = null;
             holdingGun = false;
-            //holdingKnife = false;
-
             //Hide the UI STUFF for the gun
             ammoUi.SetActive(false);
 
@@ -360,8 +351,6 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.position = holdPositionRight.position;
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
-
-                holdingKnife = true;
 
                 //Make sure the pickuptext disappears after the object has been picked up
                 //pickUpText.SetActive(false);
