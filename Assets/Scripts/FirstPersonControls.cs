@@ -78,6 +78,9 @@ public class FirstPersonControls : MonoBehaviour
     public Slider playerHealthBar; //Self explanatory...player's healthbar
     public int playerTotalHealth = 100;  //Total health the player begins with
     public int currentHealth;  //Their updating health when injured by enemies
+    ////UI SETUP FOR THE COUNTDOWN
+    //public TextMeshProUGUI countDownTimer;
+    //public int timeRemaining = 300;
 
     //public float damageAmount = 0.25f; // Reduce the health bar by this amount
     //private float healAmount = 0.5f;// Fill the health bar by this amount
