@@ -54,6 +54,7 @@ public class FirstPersonControls : MonoBehaviour
     public Transform holdPositionLeft; // Position where the picked-up object will be held
     public Transform holdPositionRight; // Position where the picked-up object will be held
     private GameObject heldObject; // Reference to the currently held object
+    public ParticleSystem keyGlow; //Calling the glow of the bone key
 
     // Crouch settings
     [Header("CROUCH SETTINGS")]
@@ -321,13 +322,6 @@ public class FirstPersonControls : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
-
-            //Once the raycast hits, pickUp text should display
-            //if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Gun"))
-            //{
-            //    pickUpText.SetActive(true);
-            //}
-
             // Check if the hit object has the tag "PickUp"
             if (hit.collider.CompareTag("PickUp"))
             {
@@ -378,7 +372,26 @@ public class FirstPersonControls : MonoBehaviour
 
                 //Make sure the pickuptext disappears after the object has been picked up
                 //pickUpText.SetActive(false);
-            }    
+            }
+
+            //Making one for the bonekey
+            if (hit.collider.CompareTag("Key"))
+            {
+                //Stop the particle system from playing
+                keyGlow.Stop();
+
+                // Pick up the object
+                heldObject = hit.collider.gameObject;
+                heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
+
+                // Attach the object to the LEFT hold position
+                heldObject.transform.position = holdPositionLeft.position;
+                heldObject.transform.rotation = holdPositionLeft.rotation;
+                heldObject.transform.parent = holdPositionLeft;
+
+                //Make sure the pickuptext disappears after the object has been picked up
+                //pickUpText.SetActive(false);
+            }
         }
     }
 
@@ -460,8 +473,6 @@ public class FirstPersonControls : MonoBehaviour
                 //Hide interaction text after the stuff has been pressed
                 //gateInteractionText.SetActive(false)
             }
-
-            ;
         }
     }
 
@@ -523,7 +534,7 @@ public class FirstPersonControls : MonoBehaviour
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
             // Check if the object has the "PickUp" tag
-            if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Gun"))
+            if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Gun") || hit.collider.CompareTag("Key"))
             {
                 // Display the pick-up text
                 pickUpText.gameObject.SetActive(true); // DISPLAY THE TEXT
