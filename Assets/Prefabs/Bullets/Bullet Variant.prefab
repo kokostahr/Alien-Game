@@ -156,5 +156,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed972bcc1e928743a3690350d789969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyBulletDamage: 50
+  enemyBulletDamage: 5
   enemyBulletSpeed: 28
