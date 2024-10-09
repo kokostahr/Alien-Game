@@ -28,7 +28,12 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         timeRemaining -= Time.deltaTime;
-        countDownTimer.text = "Time Remaining = " + timeRemaining.ToString();
+        //Dividing the time into mins and seconds
+        int minutes = Mathf.FloorToInt(timeRemaining / 60);
+        int seconds = Mathf.FloorToInt(timeRemaining % 60);
+        //Setting the timer into mintues and seconds format
+        countDownTimer.text = "Time Remaining = " + string.Format( "{0:00}:{1:00}", minutes, seconds); 
+
         if (timeRemaining <= 0)
         {
             SceneManager.LoadScene(levelToLoad);
