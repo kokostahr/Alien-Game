@@ -34,6 +34,12 @@ public class UIManager : MonoBehaviour
         //Setting the timer into mintues and seconds format
         countDownTimer.text = "Time Remaining = " + string.Format( "{0:00}:{1:00}", minutes, seconds); 
 
+        //CHANGING THE COLOUR OF THE TEXT AT THE LAST MINUTE
+        if (timeRemaining <= 60)
+        {
+            countDownTimer.color = Color.red;
+        }
+
         if (timeRemaining <= 0)
         {
             SceneManager.LoadScene(levelToLoad);
