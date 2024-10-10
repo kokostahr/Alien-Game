@@ -88,6 +88,8 @@ public class FirstPersonControls : MonoBehaviour
 
     [Header("AUDIO SETTINGS")]
     [Space(5)]
+    //Accessing AudioManager Script so we can play the relevant sounds at the right time
+    AudioManager audioManager;
     public AudioSource manScreaming;
     public AudioSource womanScreaming;
     public string loadNewScene;
@@ -98,6 +100,9 @@ public class FirstPersonControls : MonoBehaviour
     {
         // Get and store the CharacterController component attached to this GameObject
         characterController = GetComponent<CharacterController>();
+
+        //Accessing the audioManager gameObj using its Tag
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start()
@@ -177,7 +182,7 @@ public class FirstPersonControls : MonoBehaviour
         {
             //need to play "you died scene"
             Debug.Log("You died");
-            womanScreaming.Play();
+            audioManager.PlaySFX(audioManager.herScreamSFX);
             SceneManager.LoadScene(loadNewScene);
 
         }
@@ -319,7 +324,7 @@ public class FirstPersonControls : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Gate"))
         {
-            manScreaming.Play();
+            audioManager.PlaySFX(audioManager.hisScreamSFX);
         }
     }
 
