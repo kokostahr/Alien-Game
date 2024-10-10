@@ -48,10 +48,10 @@ public class FirstPersonControls : MonoBehaviour
     [Header("STABBING SETTINGS")]
     [Space(5)]
     public float stabSpeed = 15f;
-    //private bool holdingKnife = false;
-    //Calling an animator for the different knives
-    //public Animator throwAnim;
-    //public Animator swordAnim;
+    private bool holdingKnife = false;
+    //Calling an animator for the knives
+    public Animator knifeAnim;
+    
 
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
@@ -145,7 +145,7 @@ public class FirstPersonControls : MonoBehaviour
         playerInput.Player.Shoot.performed += ctx => Shoot(); // Call the Shoot method when shoot input is performed
 
         // Subscribe to the shoot input event
-        //playerInput.Player.Stabbing.performed += ctx => Stabb(); // Call the Stabbing method when shoot input is performed
+        playerInput.Player.Stabbing.performed += ctx => Stabb(); // Call the Stabbing method when shoot input is performed
 
         // Subscribe to the pick-up input event
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
@@ -309,24 +309,26 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
-    //public void Stabb()
-    //{
-    //    //Get the object's animator and play the animation once, only when the right-mouse button is clicked
-    //    if (holdingKnife == true)
-    //    {
-    //        swordAnim.SetTrigger("Active");
-    //    }
-
-    //}
-
-    //TRIGGER VOID METHOD FOR THE TRIGGERING OF THE AUDIOSOURCES
-    private void OnCollisionEnter (Collision col)
+    public void Stabb()
     {
-        if (col.gameObject.CompareTag("Gate"))
+        //Get the object's animator and play the animation once, only when the right-mouse button is clicked
+        if (holdingKnife == true)
         {
-            audioManager.PlaySFX(audioManager.hisScreamSFX);
+            knifeAnim.SetTrigger("Active");
+            
         }
+        knifeAnim.ResetTrigger("Active");
+
     }
+
+    ////TRIGGER VOID METHOD FOR THE TRIGGERING OF THE AUDIOSOURCES
+    //private void OnCollisionEnter (Collision col)
+    //{
+    //    if (col.gameObject.CompareTag("Gate"))
+    //    {
+    //        //audioManager.PlaySFX(audioManager.hisScreamSFX);
+    //    }
+    //}
 
     public void PickUpObject()
     {
@@ -380,7 +382,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
 
-                //holdingKnife = true;
+                holdingKnife = true;
 
                 //Make sure the pickuptext disappears after the object has been picked up
                 //pickUpText.SetActive(false);
@@ -502,6 +504,9 @@ public class FirstPersonControls : MonoBehaviour
             {
                 // Start moving the door upwards
                 StartCoroutine(OpenGate(hit.collider.gameObject));
+
+                //Play the man's screaming audio
+                audioManager.PlaySFX(audioManager.hisScreamSFX);
 
                 //Hide interaction text after the stuff has been pressed
                 //gateInteractionText.SetActive(false)
