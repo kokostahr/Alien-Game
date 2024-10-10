@@ -317,7 +317,7 @@ public class FirstPersonControls : MonoBehaviour
             knifeAnim.SetTrigger("Active");
             
         }
-        knifeAnim.ResetTrigger("Active");
+        //knifeAnim.ResetTrigger("Active");
 
     }
 
