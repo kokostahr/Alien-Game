@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public GameObject[] UIElements;
     public GameObject initialButton;
     public VideoPlayer mainMenuPlayer;
+    public GameObject screenPanel;
 
 
     // Method to rotate the camera left by 90 degrees
@@ -62,6 +63,7 @@ public class UIManager : MonoBehaviour
         mainCamera.transform.rotation = endRotation; // Ensure exact final rotation
         isRotating = false;
         initialButton.SetActive(false);
+        screenPanel.SetActive(false);
 
         foreach (GameObject UIelement in UIElements)
         {
