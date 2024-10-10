@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FirstPersonControls : MonoBehaviour
 {
@@ -47,10 +48,10 @@ public class FirstPersonControls : MonoBehaviour
     [Header("STABBING SETTINGS")]
     [Space(5)]
     public float stabSpeed = 15f;
-    private bool holdingKnife = false;
+    //private bool holdingKnife = false;
     //Calling an animator for the different knives
-    public Animator throwAnim;
-    public Animator swordAnim;
+    //public Animator throwAnim;
+    //public Animator swordAnim;
 
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
@@ -81,14 +82,16 @@ public class FirstPersonControls : MonoBehaviour
     public Slider playerHealthBar; //Self explanatory...player's healthbar
     public int playerTotalHealth = 100;  //Total health the player begins with
     public int currentHealth;  //Their updating health when injured by enemies
-    ////UI SETUP FOR THE COUNTDOWN
-    //public TextMeshProUGUI countDownTimer;
-    //public int timeRemaining = 300;
+                               ////UI SETUP FOR THE COUNTDOWN
+                               //public TextMeshProUGUI countDownTimer;
+                               //public int timeRemaining = 300;
 
-    //public float damageAmount = 0.25f; // Reduce the health bar by this amount
-    //private float healAmount = 0.5f;// Fill the health bar by this amount
+    [Header("AUDIO SETTINGS")]
+    [Space(5)]
+    public AudioSource manScreaming;
+    public AudioSource womanScreaming;
+    public string loadNewScene;
 
-    
 
 
     private void Awake()
@@ -137,7 +140,7 @@ public class FirstPersonControls : MonoBehaviour
         playerInput.Player.Shoot.performed += ctx => Shoot(); // Call the Shoot method when shoot input is performed
 
         // Subscribe to the shoot input event
-        playerInput.Player.Stabbing.performed += ctx => Stabb(); // Call the Stabbing method when shoot input is performed
+        //playerInput.Player.Stabbing.performed += ctx => Stabb(); // Call the Stabbing method when shoot input is performed
 
         // Subscribe to the pick-up input event
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
@@ -170,10 +173,12 @@ public class FirstPersonControls : MonoBehaviour
 
         playerHealthBar.value = currentHealth;
 
-        if (currentHealth == 0)
+        if (currentHealth <= 0) //Player needs to die after they lose their health
         {
             //need to play "you died scene"
             Debug.Log("You died");
+            womanScreaming.Play();
+            SceneManager.LoadScene(loadNewScene);
 
         }
     }
@@ -299,14 +304,23 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
-    public void Stabb()
-    {
-        //Get the object's animator and play the animation once, only when the right-mouse button is clicked
-        if (holdingKnife == true)
-        {
-            swordAnim.SetTrigger("Active");
-        }
+    //public void Stabb()
+    //{
+    //    //Get the object's animator and play the animation once, only when the right-mouse button is clicked
+    //    if (holdingKnife == true)
+    //    {
+    //        swordAnim.SetTrigger("Active");
+    //    }
 
+    //}
+
+    //TRIGGER VOID METHOD FOR THE TRIGGERING OF THE AUDIOSOURCES
+    private void OnCollisionEnter (Collision col)
+    {
+        if (col.gameObject.CompareTag("Gate"))
+        {
+            manScreaming.Play();
+        }
     }
 
     public void PickUpObject()
@@ -361,7 +375,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.rotation = holdPositionRight.rotation;
                 heldObject.transform.parent = holdPositionRight;
 
-                holdingKnife = true;
+                //holdingKnife = true;
 
                 //Make sure the pickuptext disappears after the object has been picked up
                 //pickUpText.SetActive(false);
