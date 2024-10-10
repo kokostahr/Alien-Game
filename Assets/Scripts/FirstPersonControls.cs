@@ -94,6 +94,9 @@ public class FirstPersonControls : MonoBehaviour
     public AudioSource womanScreaming;
     public string loadNewScene;
 
+    [Header("ANIMATION SETTINGS")]
+    [Space(5)]
+    public Animator playerAnim;
 
 
     private void Awake()
@@ -222,6 +225,7 @@ public class FirstPersonControls : MonoBehaviour
 
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * currentSpeed * Time.deltaTime);
+        //playerAnim.SetFloat("Speed", currentSpeed); //Update the Speed parameter in the Animator
     }
     public void LookAround()
     {
@@ -317,7 +321,7 @@ public class FirstPersonControls : MonoBehaviour
             knifeAnim.SetTrigger("Active");
             
         }
-        //knifeAnim.ResetTrigger("Active");
+        knifeAnim.ResetTrigger("Active");
 
     }
 
