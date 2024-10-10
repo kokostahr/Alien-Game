@@ -6,6 +6,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Video;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class UIManager : MonoBehaviour
     private bool isRotating = false; // Track if the camera is currently rotating
     public GameObject[] UIElements;
     public GameObject initialButton;
+    public VideoPlayer mainMenuPlayer;
 
 
     // Method to rotate the camera left by 90 degrees
@@ -41,6 +43,8 @@ public class UIManager : MonoBehaviour
     // Coroutine to smoothly rotate the camera
     private IEnumerator RotateCameraCoroutine(float angle)
     {
+        mainMenuPlayer.Play();
+
         isRotating = true;
         Quaternion startRotation = mainCamera.transform.rotation; // Initial rotation
         Quaternion endRotation = startRotation * Quaternion.Euler(0, -angle, 0); //Target rotation
