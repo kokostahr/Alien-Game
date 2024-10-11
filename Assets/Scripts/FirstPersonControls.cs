@@ -92,6 +92,9 @@ public class FirstPersonControls : MonoBehaviour
     AudioManager audioManager;
     public string loadNewScene;
 
+    [Header("ANIMATION SETTINGS")]
+    [Space(5)]
+    public Animator mcAnim;
 
 
     private void Awake()
@@ -118,9 +121,7 @@ public class FirstPersonControls : MonoBehaviour
         playerHealthBar.value = currentHealth; //The updating currentvalue of the player's health when they are injured and etc...
 
         //healthCount.text = "Health = " + currentHealth.ToString();
-
-        //As stated above, calling the enemy within start for the bullets to have an effect on the enemy's health.
-        //enemy = GameObject.FindGameObjectWithTag("Enemy");
+  
     } 
 
     private void OnEnable() //initialises and enables input actions. It listens for player input to handle, referring to the generated C# script for the action map
@@ -197,6 +198,12 @@ public class FirstPersonControls : MonoBehaviour
         {
             knifeAnim.ResetTrigger("Active");
         }
+
+        // Check if the animation is done playing and reset the trigger
+        if (animStateInfo.IsTag("Jumping") && animStateInfo.normalizedTime >= 1.0f)
+        {
+            mcAnim.ResetTrigger("Jumped");
+        }
     }
     public void Move()
     {
@@ -206,22 +213,18 @@ public class FirstPersonControls : MonoBehaviour
         // Transform direction from local to world space.
         // Local space refers to its self space whereas world space refers to the gloabal space within the game world. eg a moon orbits around the earth - Local Space. Moon orbits around the sun - world space.
         move = transform.TransformDirection(move);
-
-
-        //Adjust speed if crouching
         float currentSpeed;
 
-        if(isCrouching)
+        if (moveInput.x == 0 && moveInput.y == 0)
+        {
+            currentSpeed = 0;
+        }
+        else if(isCrouching) //Adjust speed when crouching
         {
             currentSpeed = crouchSpeed;
         }
-        else
-        {
-            currentSpeed = moveSpeed;
-        }
-
         //Adjust speed when sprinting
-        if (isSprinting)
+        else if (isSprinting)
         {
             currentSpeed = sprintSpeed;
         }
@@ -230,9 +233,10 @@ public class FirstPersonControls : MonoBehaviour
             currentSpeed = moveSpeed;
         }
 
-
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * currentSpeed * Time.deltaTime);
+        mcAnim.SetFloat("Speed", currentSpeed); //Update the speed parameter in the Animator
+
     }
     public void LookAround()
     {
@@ -273,11 +277,14 @@ public class FirstPersonControls : MonoBehaviour
             // Calculate the jump velocity
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             timesJumped = 0;
+            mcAnim.SetTrigger("Jumped");
+
         }
         else if (!characterController.isGrounded && timesJumped < jumpLimit) 
         {
             // Calculate the double jump velocity. Jump when player is already in the air
             timesJumped++;
+            mcAnim.SetTrigger("Jumped");
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
