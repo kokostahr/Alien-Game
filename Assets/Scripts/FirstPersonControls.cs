@@ -90,8 +90,6 @@ public class FirstPersonControls : MonoBehaviour
     [Space(5)]
     //Accessing AudioManager Script so we can play the relevant sounds at the right time
     AudioManager audioManager;
-    public AudioSource manScreaming;
-    public AudioSource womanScreaming;
     public string loadNewScene;
 
 
@@ -107,6 +105,10 @@ public class FirstPersonControls : MonoBehaviour
 
     private void Start()
     {
+        //Play audio when player wakes up
+        audioManager.PlaySFX(audioManager.howLongHave);
+
+
         currentBullets = MaxBullets;
         //ammoCount.text = "Ammo = " + currentBullets.ToString();
 
@@ -436,6 +438,24 @@ public class FirstPersonControls : MonoBehaviour
                 //Make sure the pickuptext disappears after the object has been picked up
                 //pickUpText.SetActive(false);
             }
+
+            
+            //Making one for the phone
+            if (hit.collider.CompareTag("Phone"))
+            {
+                // Pick up the object
+                heldObject = hit.collider.gameObject;
+                heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
+
+                // Attach the object to the LEFT hold position
+                heldObject.transform.position = holdPositionLeft.position;
+                heldObject.transform.rotation = holdPositionLeft.rotation;
+                heldObject.transform.parent = holdPositionLeft;
+
+                //Play the happy birthday audio
+                audioManager.PlaySFX(audioManager.happyBirthday);
+            }
+
         }
     }
 
@@ -581,7 +601,7 @@ public class FirstPersonControls : MonoBehaviour
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
             // Check if the object has the "PickUp" tag
-            if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Gun") || hit.collider.CompareTag("Key"))
+            if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Gun") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Phone"))
             {
                 // Display the pick-up text
                 pickUpText.gameObject.SetActive(true); // DISPLAY THE TEXT
@@ -600,6 +620,56 @@ public class FirstPersonControls : MonoBehaviour
             pickUpText.gameObject.SetActive(false);
         }
 
+        //// Perform raycast to detect phone
+        //if (Physics.Raycast(ray, out hit, pickUpRange))
+        //{
+        //    // Check if the object has the "PickUp" tag
+        //    if (hit.collider.CompareTag("Phone"))
+        //    {
+        //        // Display the pick-up text
+        //        pickUpText.gameObject.SetActive(true);
+        //        //Play the happy birthday audio
+        //        audioManager.PlaySFX(audioManager.happyBirthday);
+        //        //pickUpText.text = hit.collider.gameObject.name; //this DISPLAYs THE actual NAME OF THE GAMEOBJECT
+        //        Debug.Log("ACTIVATED PICKUPTEXT");
+        //    }
+        //    else
+        //    {
+        //        // Hide the pick-up text if not looking at a "PickUp" object
+        //        pickUpText.gameObject.SetActive(false);
+        //    }
+        //}
+        //else
+        //{
+        //    // Hide the text if not looking at any object
+        //    pickUpText.gameObject.SetActive(false);
+        //}
+
+        //// Perform raycast to detect house gate
+        //if (Physics.Raycast(ray, out hit, pickUpRange))
+        //{
+        //    // Check if the object has the "PickUp" tag
+        //    if (hit.collider.CompareTag("Door"))
+        //    {
+        //        // Display the pick-up text
+        //        pickUpText.gameObject.SetActive(true);
+        //        //Play the happy birthday audio
+        //        audioManager.PlaySFX(audioManager.hasToGetOut);
+        //        //pickUpText.text = hit.collider.gameObject.name; //this DISPLAYs THE actual NAME OF THE GAMEOBJECT
+        //        Debug.Log("ACTIVATED PICKUPTEXT");
+        //    }
+        //    else
+        //    {
+        //        // Hide the pick-up text if not looking at a "PickUp" object
+        //        pickUpText.gameObject.SetActive(false);
+        //    }
+        //}
+        //else
+        //{
+        //    // Hide the text if not looking at any object
+        //    pickUpText.gameObject.SetActive(false);
+        //}
+
         // Perform raycast to detect the gate
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
@@ -608,6 +678,8 @@ public class FirstPersonControls : MonoBehaviour
             {
                 // Display the gate interaction text
                 gateInteractionText.SetActive(true);
+
+
                 //pickUpText.text = hit.collider.gameObject.name; 
                 Debug.Log("ACTIVATED OPENGATE");
             }
