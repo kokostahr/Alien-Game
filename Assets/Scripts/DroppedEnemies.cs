@@ -78,6 +78,7 @@ public class DroppedEnemies : MonoBehaviour
     [Header("A list of the game objects that need to be set Active")]
     [Space(5)]
     public GameObject[] enemies;
+    //public GameObject enemy;
     public CountDownTimer countDownTimer;
 
     [Header("ENEMY MOVEMENT SETUP")]
@@ -125,7 +126,7 @@ public class DroppedEnemies : MonoBehaviour
             randomEnemy.SetActive(true);
         }
 
-        if (countDownTimer.timeRemaining <= 210f)
+        else if (countDownTimer.timeRemaining <= 210f)
         {
             //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
             //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
@@ -133,7 +134,7 @@ public class DroppedEnemies : MonoBehaviour
             randomEnemy.SetActive(true);
         }
 
-        if (countDownTimer.timeRemaining <= 161f)
+        else if (countDownTimer.timeRemaining <= 161f)
         {
             //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
             //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
@@ -141,7 +142,7 @@ public class DroppedEnemies : MonoBehaviour
             randomEnemy.SetActive(true);
         }
 
-        if (countDownTimer.timeRemaining <= 111f)
+        else if (countDownTimer.timeRemaining <= 111f)
         {
             //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
             //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
@@ -149,7 +150,7 @@ public class DroppedEnemies : MonoBehaviour
             randomEnemy.SetActive(true);
         }
 
-        if (countDownTimer.timeRemaining <= 62f)
+        else if (countDownTimer.timeRemaining <= 62f)
         {
             //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
             //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
@@ -157,7 +158,7 @@ public class DroppedEnemies : MonoBehaviour
             randomEnemy.SetActive(true);
         }
 
-        if (countDownTimer.timeRemaining <= 10f)
+        else if (countDownTimer.timeRemaining <= 10f)
         {
             //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
             //randomEnemy.SetActive(true && !randomEnemy.activeSelf);

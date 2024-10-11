@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TrapDoor : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class TrapDoor : MonoBehaviour
     [Space(5)]
     public GameObject trappedDoor;
     public GameObject trapDoorUI;
+    public string trapdoorExit;
 
 
     public void OnTriggerEnter(Collider col)
@@ -19,6 +21,11 @@ public class TrapDoor : MonoBehaviour
         }
 
         trapDoorUI.SetActive(true);
+    }
+
+    public void WinEndGame()
+    {
+        SceneManager.LoadScene(trapdoorExit);
     }
 
 

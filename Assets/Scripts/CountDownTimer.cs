@@ -14,6 +14,8 @@ public class CountDownTimer : MonoBehaviour
     public TextMeshProUGUI countDownTimer;  //Text that will display the countdown timer
     public float timeRemaining = 300f; //Amount of time remaining in game, in seconds. 
 
+    AudioManager audioManager;
+
     private void Update()
     {
         timeRemaining -= Time.deltaTime;
@@ -32,6 +34,7 @@ public class CountDownTimer : MonoBehaviour
         if (timeRemaining <= 0)
         {
             SceneManager.LoadScene(levelToLoad);
+            audioManager.PlaySFX(audioManager.herScreamSFX);
         }
     }
 }
