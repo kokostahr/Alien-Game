@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - Key
   - Audio
+  - TrapDoor
   layers:
   - Default
   - TransparentFX
