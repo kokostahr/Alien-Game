@@ -186,6 +186,15 @@ public class FirstPersonControls : MonoBehaviour
             SceneManager.LoadScene(loadNewScene);
 
         }
+
+        //Checking if the animation for the knife is still playing
+        AnimatorStateInfo animStateInfo = knifeAnim.GetCurrentAnimatorStateInfo(0);
+
+        // Check if the animation is done playing and reset the trigger
+        if (animStateInfo.IsTag("KnifeSlice") && animStateInfo.normalizedTime >= 1.0f)
+        {
+            knifeAnim.ResetTrigger("Active");
+        }
     }
     public void Move()
     {
