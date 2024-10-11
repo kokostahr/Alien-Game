@@ -33,8 +33,9 @@ public class CountDownTimer : MonoBehaviour
 
         if (timeRemaining <= 0)
         {
-            SceneManager.LoadScene(levelToLoad);
             audioManager.PlaySFX(audioManager.herScreamSFX);
+            SceneManager.LoadScene(levelToLoad);
+            
         }
     }
 }

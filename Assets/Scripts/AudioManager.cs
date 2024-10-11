@@ -17,6 +17,10 @@ public class AudioManager : MonoBehaviour
     public AudioClip bgMusic;
     public AudioClip herScreamSFX;
     public AudioClip hisScreamSFX;
+    public AudioClip enemyCaveSound;
+    public AudioClip howLongHave;
+    public AudioClip happyBirthday;
+    public AudioClip hasToGetOut;
 
 
     private static AudioManager instance; //instance to make sure we can detect the current gameobj and delete unnecesary clones
