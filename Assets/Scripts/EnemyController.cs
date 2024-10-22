@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI; 
 
 public class EnemyController : MonoBehaviour
 {
@@ -30,6 +31,19 @@ public class EnemyController : MonoBehaviour
     public int enemybulletSpeed;
     public float fireRate; //The rate at which the enemy will fire the bullet (every _ seconds)
     public float nextFire; //When the enemy should fire their bullet again
+
+    [Header("ENEMY PATROLLING")]
+    [Space(5)]
+    //Making use of the NavMesh agent so that the enemy can move and track the player
+    public NavMeshAgent navMeshAgent;
+    //A transform to detect the player's movements in game
+    public Transform playerMovement;
+    //Why do we need a layermask ;(. Defining what is the ground & what is play. IDK what that means yet
+    public LayerMask whatIsGround, whatIsPlay;
+    //Patroling settings
+    public Vector3 walkingPoint;
+    //bool 
+
 
     // Start is called before the first frame update
     void Start()
