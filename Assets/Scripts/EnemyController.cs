@@ -57,7 +57,7 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         //Going to set the objects to find the player everytime the game starts
-        playerMovement = GameObject.Find("Player").transform;
+        playerMovement = GameObject.Find("MCAnimatedPlayer").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
