@@ -75,99 +75,154 @@ public class DroppedEnemies : MonoBehaviour
     #endregion
 
     #region SECON ATTEMPT
+    //[Header("A list of the game objects that need to be set Active")]
+    //[Space(5)]
+    //public GameObject[] enemies;
+    ////public GameObject enemy;
+    //public CountDownTimer countDownTimer;
+
+    //[Header("ENEMY MOVEMENT SETUP")]
+    //[Space(5)]
+    //public int basicMoveSpeed;
+    //public float movementRange = 0.429f;  // How far they move to the left and right
+    //private float movementTimer;
+    //private GameObject randomEnemy;
+
+    //void Start ()
+    //{
+        
+    //    movementTimer = 0f; // Initialize the timer for horizontal movement
+
+    //    foreach (GameObject enemy in enemies)
+    //    {
+    //        enemy.SetActive(false);
+    //    }
+    //}
+
+    //void Update ()
+    //{
+    //    //Updating the timer for the left-right movement
+    //    movementTimer += Time.deltaTime;
+
+    //    // Movement logic using a sine wave for left-right motion
+    //    float movementX = Mathf.Sin(movementTimer * basicMoveSpeed) * movementRange;
+
+    //    // Loop through all spawned enemies and update their position
+    //    foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) // Assuming enemies are tagged "Enemy"
+    //    {
+    //        Vector3 enemyPos = enemy.transform.position;
+    //        enemy.transform.position = new Vector3(enemyPos.x + movementX, enemyPos.y, enemyPos.z);
+    //    }
+
+
+    //    //I want to set a random object in the list active. 
+    //    GameObject randomEnemy = enemies[Random.Range(0, enemies.Length)];
+
+    //    if (countDownTimer.timeRemaining <= 260f && !randomEnemy.activeSelf)
+    //    {
+    //        //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
+    //        //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
+    //        randomEnemy = enemies[Random.Range(0, enemies.Length)];
+    //        randomEnemy.SetActive(true);
+    //    }
+
+    //    else if (countDownTimer.timeRemaining <= 210f)
+    //    {
+    //        //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
+    //        //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
+    //        randomEnemy = enemies[Random.Range(0, enemies.Length)];
+    //        randomEnemy.SetActive(true);
+    //    }
+
+    //    else if (countDownTimer.timeRemaining <= 161f)
+    //    {
+    //        //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
+    //        //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
+    //        randomEnemy = enemies[Random.Range(0, enemies.Length)];
+    //        randomEnemy.SetActive(true);
+    //    }
+
+    //    else if (countDownTimer.timeRemaining <= 111f)
+    //    {
+    //        //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
+    //        //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
+    //        randomEnemy = enemies[Random.Range(0, enemies.Length)];
+    //        randomEnemy.SetActive(true);
+    //    }
+
+    //    else if (countDownTimer.timeRemaining <= 62f)
+    //    {
+    //        //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
+    //        //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
+    //        randomEnemy = enemies[Random.Range(0, enemies.Length)];
+    //        randomEnemy.SetActive(true);
+    //    }
+
+    //    else if (countDownTimer.timeRemaining <= 10f)
+    //    {
+    //        //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
+    //        //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
+    //        randomEnemy = enemies[Random.Range(0, enemies.Length)];
+    //        randomEnemy.SetActive(true);
+    //    }
+    //}
+
+
+
+    #endregion
+
+    #region THIRD ATTEMPT
+
     [Header("A list of the game objects that need to be set Active")]
     [Space(5)]
     public GameObject[] enemies;
     //public GameObject enemy;
     public CountDownTimer countDownTimer;
+    public Transform enemySpawnPoint;
 
-    [Header("ENEMY MOVEMENT SETUP")]
-    [Space(5)]
-    public int basicMoveSpeed;
-    public float movementRange = 0.429f;  // How far they move to the left and right
-    private float movementTimer;
-    private GameObject randomEnemy;
-
-    void Start ()
+    void Start()
     {
-        
-        movementTimer = 0f; // Initialize the timer for horizontal movement
-
-        foreach (GameObject enemy in enemies)
-        {
-            enemy.SetActive(false);
-        }
+        //foreach (GameObject enemy in enemies)
+        //{
+        //    enemy.SetActive(false);
+        //}
     }
 
-    void Update ()
+    void Update()
     {
-        //Updating the timer for the left-right movement
-        movementTimer += Time.deltaTime;
-
-        // Movement logic using a sine wave for left-right motion
-        float movementX = Mathf.Sin(movementTimer * basicMoveSpeed) * movementRange;
-
-        // Loop through all spawned enemies and update their position
-        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) // Assuming enemies are tagged "Enemy"
-        {
-            Vector3 enemyPos = enemy.transform.position;
-            enemy.transform.position = new Vector3(enemyPos.x + movementX, enemyPos.y, enemyPos.z);
-        }
-
-
         //I want to set a random object in the list active. 
         GameObject randomEnemy = enemies[Random.Range(0, enemies.Length)];
 
         if (countDownTimer.timeRemaining <= 260f && !randomEnemy.activeSelf)
         {
-            //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
-            //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
-            randomEnemy = enemies[Random.Range(0, enemies.Length)];
-            randomEnemy.SetActive(true);
+            Instantiate(enemies[Random.Range(0, enemies.Length)], enemySpawnPoint.position, enemySpawnPoint.rotation);
         }
 
-        else if (countDownTimer.timeRemaining <= 210f)
+        if (countDownTimer.timeRemaining <= 210f)
         {
-            //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
-            //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
-            randomEnemy = enemies[Random.Range(0, enemies.Length)];
-            randomEnemy.SetActive(true);
+            Instantiate(enemies[Random.Range(0, enemies.Length)], enemySpawnPoint.position, enemySpawnPoint.rotation);
         }
 
-        else if (countDownTimer.timeRemaining <= 161f)
+        if (countDownTimer.timeRemaining <= 161f)
         {
-            //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
-            //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
-            randomEnemy = enemies[Random.Range(0, enemies.Length)];
-            randomEnemy.SetActive(true);
+            Instantiate(enemies[Random.Range(0, enemies.Length)], enemySpawnPoint.position, enemySpawnPoint.rotation);
         }
 
-        else if (countDownTimer.timeRemaining <= 111f)
+        if (countDownTimer.timeRemaining <= 111f)
         {
-            //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
-            //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
-            randomEnemy = enemies[Random.Range(0, enemies.Length)];
-            randomEnemy.SetActive(true);
+            Instantiate(enemies[Random.Range(0, enemies.Length)], enemySpawnPoint.position, enemySpawnPoint.rotation);
         }
 
-        else if (countDownTimer.timeRemaining <= 62f)
+        if (countDownTimer.timeRemaining <= 62f)
         {
-            //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
-            //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
-            randomEnemy = enemies[Random.Range(0, enemies.Length)];
-            randomEnemy.SetActive(true);
+            Instantiate(enemies[Random.Range(0, enemies.Length)], enemySpawnPoint.position, enemySpawnPoint.rotation);
         }
 
-        else if (countDownTimer.timeRemaining <= 10f)
+        if (countDownTimer.timeRemaining <= 10f)
         {
-            //Instantiate(shootingEnmy, enemySpawnPoint.position, enemySpawnPoint.rotation);
-            //randomEnemy.SetActive(true && !randomEnemy.activeSelf);
-            randomEnemy = enemies[Random.Range(0, enemies.Length)];
-            randomEnemy.SetActive(true);
+            Instantiate(enemies[Random.Range(0, enemies.Length)], enemySpawnPoint.position, enemySpawnPoint.rotation);
         }
     }
-
-    
 
     #endregion
 }
