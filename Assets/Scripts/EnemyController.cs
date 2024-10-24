@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.AI; 
-
+using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
 
@@ -172,10 +171,17 @@ public class EnemyController : MonoBehaviour
 
     void AttackPlayer()
     {
-        //Make sure the enemy stops moving
-        navMeshAgent.SetDestination(transform.position);
 
-        transform.LookAt(playerMovement);
+        Vector3 newPlayer = playerMovement.position; //plug the Players Position into a Vector3
+
+        newPlayer.y = transform.position.y; //Isolate the Y in the var
+
+        transform.LookAt(newPlayer);
+
+        //Make sure the enemy stops moving
+        //navMeshAgent.SetDestination(transform.position);
+
+        //transform.LookAt(playerMovement);
 
         if (!alreadyAttacked)
         {
