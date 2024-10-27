@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
+    //Youtube references
+    //Enemy AI Using NavMesh - https://www.youtube.com/watch?v=UjkSFoLxesw
 
     [Header("PLAYER SETTINGS 4 ENEMY")]
     private GameObject player;
@@ -93,6 +95,11 @@ public class EnemyController : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patrolling(); //If the player is not in range to be seen or for attacking then the enemy should patrol.
         if (playerInSightRange && !playerInAttackRange) ChasePlayer(); //Chase the player if they're range to be seen, but not to be attacked
         if (playerInSightRange && playerInAttackRange) AttackPlayer(); //The enemy should attack and chase the player when they're in range 
+
+        if (navMeshAgent.velocity != Vector3.zero) // Only rotate if moving in appropriate direction
+        {
+            transform.forward = navMeshAgent.velocity.normalized;
+        }
     }
 
     public void CheckIfTimeToFire() //For Shooting their Laser Eyes
