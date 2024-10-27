@@ -142,7 +142,7 @@ public class EnemyController : MonoBehaviour
         Vector3 distanceToWalkingPoint = transform.position - walkingPoint;
 
         //When the walking point has been reached
-        if (distanceToWalkingPoint.magnitude <1f)
+        if (distanceToWalkingPoint.magnitude < 2f)
         {
             walkingPointSet = false;
         }
