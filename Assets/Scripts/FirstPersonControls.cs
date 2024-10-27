@@ -108,6 +108,9 @@ public class FirstPersonControls : MonoBehaviour
 
     private void Start()
     {
+        //Trying to stop the camera from tilting 90degrees when the game starts
+        playerCamera.localEulerAngles = Vector3.zero;
+
         //Play audio when player wakes up
         audioManager.PlaySFX(audioManager.howLongHave);
 
@@ -541,8 +544,8 @@ public class FirstPersonControls : MonoBehaviour
                 // Start moving the door upwards
                 StartCoroutine(OpenGate(hit.collider.gameObject));
 
-                //Play the man's screaming audio
-                audioManager.PlaySFX(audioManager.hisScreamSFX);
+                //Play the man's screaming audio. Its too loud so we remove
+                //audioManager.PlaySFX(audioManager.hisScreamSFX);
 
                 //Hide interaction text after the stuff has been pressed
                 //gateInteractionText.SetActive(false)
