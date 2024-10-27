@@ -44,6 +44,7 @@ public class BulletPlayerDamage : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("KILL 'EM");
+            //PLAY THE BLOOD PARTICLE SYSTEM
 
             // Get the EnemyController directly from the "other" object
             EnemyController enemyController = other.gameObject.GetComponent<EnemyController>();
