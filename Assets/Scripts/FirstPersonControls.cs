@@ -261,6 +261,7 @@ public class FirstPersonControls : MonoBehaviour
         // Apply the clamped vertical rotation to the player camera, because the player is looking through the camera view, not the player object. 
         playerCamera.localEulerAngles = new Vector3(verticalLookRotation, 0, 0);
     }
+
     public void ApplyGravity()
     {
         //Checking if the player is on the ground, so that they remain on the ground. 
