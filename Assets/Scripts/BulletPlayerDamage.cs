@@ -38,13 +38,33 @@ public class BulletPlayerDamage : MonoBehaviour
     [Header("PLAYER BULLET DAMAGE SETTINGS")]
     [Space(5)]
     public int playerBulletsDamage; //The amount of damage the player's bullet will do to the enemies
+    //public ParticleSystem bloodSplash;
+
+    //private void Start()
+    //{
+    //    //Make sure the bloodSplash doesn't play at the start of the game
+    //    bloodSplash.Pause();
+    //}
+
+    //private void Update()
+    //{
+    //    //Need a vector that will continously track where the bullet collides with the player. Gosh I'm just guessing this code
+    //    Vector3 bloodTracking = this.transform.position;
+    //}
 
     public void OnTriggerEnter(Collider other) //Function that will decrease the enemy's health when the bullet interacts with their colliders
     {
+
+        ////Need a vector that will continously track where the bullet collides with the player. Gosh I'm just guessing this code
+        //Vector3 bloodTracking = this.transform.position;
+
+        
         if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("KILL 'EM");
+            
             //PLAY THE BLOOD PARTICLE SYSTEM
+            //bloodSplash.Play();
 
             // Get the EnemyController directly from the "other" object
             EnemyController enemyController = other.gameObject.GetComponent<EnemyController>();
@@ -57,6 +77,9 @@ public class BulletPlayerDamage : MonoBehaviour
 
             // Destroy the bullet after it hits the enemy (you can add effects later)
             Destroy(gameObject);
+
+            //StopPlaying the blood splash
+            //bloodSplash.Stop();
         }
     }
     #endregion

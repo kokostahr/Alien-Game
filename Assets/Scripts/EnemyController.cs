@@ -55,6 +55,12 @@ public class EnemyController : MonoBehaviour
     bool walkingPointSet;
     public float walkingPointRange;
 
+    [Header("ENEMYE BLEEDING")]
+    [Space(5)]
+    public ParticleSystem bloodSplash;//THE BLOOD SPLASH THINGY
+
+
+
     private void Awake()
     {
         //Going to set the objects to find the player everytime the game starts
@@ -100,6 +106,8 @@ public class EnemyController : MonoBehaviour
         {
             transform.forward = navMeshAgent.velocity.normalized;
         }
+        
+        //CHECK WHERE THE BULLET COLLIDED WITH 
     }
 
     public void CheckIfTimeToFire() //For Shooting their Laser Eyes
