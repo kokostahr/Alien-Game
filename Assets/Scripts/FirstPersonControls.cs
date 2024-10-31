@@ -91,6 +91,8 @@ public class FirstPersonControls : MonoBehaviour
     //Accessing AudioManager Script so we can play the relevant sounds at the right time
     AudioManager audioManager;
     public string loadNewScene;
+    public LayerMask outdoorLayer;
+    public LayerMask indoorLayer;
 
     [Header("ANIMATION SETTINGS")]
     [Space(5)]
@@ -240,10 +242,7 @@ public class FirstPersonControls : MonoBehaviour
         characterController.Move(move * currentSpeed * Time.deltaTime);
         mcAnim.SetFloat("Speed", currentSpeed); //Update the speed parameter in the Animator
 
-        //Play the walking audio
-        audioManager.PlaySFX(audioManager.walkingSound);
-
-
+        
     }
     public void LookAround()
     {
@@ -264,6 +263,25 @@ public class FirstPersonControls : MonoBehaviour
 
         // Apply the clamped vertical rotation to the player camera, because the player is looking through the camera view, not the player object. 
         playerCamera.localEulerAngles = new Vector3(verticalLookRotation, 0, 0);
+
+        //Need a code that says when the player walks on the ground layer, then the audio should switch from indoor footsteps to grass footsteps.
+        //Using the Raycast forward to detect what kind of surface the player is walking on.
+        RaycastHit hit;
+        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, 10f)) //10 is the range/distance
+        {
+            if (((1 << hit.collider.gameObject.layer) & indoorLayer) != 0)
+            {
+                Debug.Log("Looking at inside floor");
+                //Play the indoor walking audio
+                audioManager.PlaySFX(audioManager.walkingInside);
+            }
+            else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
+            {
+                Debug.Log("Looking at outside floor");
+                //Play the outdoor walking audio
+                audioManager.PlaySFX(audioManager.walkingOutside);
+            }
+        } 
     }
 
     public void ApplyGravity()

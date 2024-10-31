@@ -22,8 +22,8 @@ TagManager:
   - whatIsPlayer
   - Water
   - UI
-  - whatIsGround
-  - Gun
+  - OutdoorGround
+  - IndoorGround
   - 
   - 
   - 

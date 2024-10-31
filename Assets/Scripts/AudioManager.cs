@@ -19,7 +19,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip gunShot;
     public AudioClip enemyCaveSound;
     public AudioClip howLongHave;
-    public AudioClip walkingSound;
+    public AudioClip walkingInside;
+    public AudioClip walkingOutside;
     public AudioClip hasToGetOut;
 
 
