@@ -93,6 +93,7 @@ public class FirstPersonControls : MonoBehaviour
     public string loadNewScene;
     public LayerMask outdoorLayer;
     public LayerMask indoorLayer;
+    public LayerMask waterLayer;
 
     [Header("ANIMATION SETTINGS")]
     [Space(5)]
@@ -280,6 +281,12 @@ public class FirstPersonControls : MonoBehaviour
                 Debug.Log("Looking at outside floor");
                 //Play the outdoor walking audio
                 audioManager.PlaySFX(audioManager.walkingOutside);
+            }
+            else if (((1 << hit.collider.gameObject.layer) & waterLayer) != 0)
+            {
+                Debug.Log("Looking at outside floor");
+                //Play the water slosh audio
+                audioManager.PlaySFX(audioManager.waterSlosh);
             }
         } 
     }

@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip howLongHave;
     public AudioClip walkingInside;
     public AudioClip walkingOutside;
+    public AudioClip waterSlosh;
     public AudioClip hasToGetOut;
 
 
