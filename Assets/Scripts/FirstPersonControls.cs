@@ -240,6 +240,10 @@ public class FirstPersonControls : MonoBehaviour
         characterController.Move(move * currentSpeed * Time.deltaTime);
         mcAnim.SetFloat("Speed", currentSpeed); //Update the speed parameter in the Animator
 
+        //Play the walking audio
+        audioManager.PlaySFX(audioManager.walkingSound);
+
+
     }
     public void LookAround()
     {
@@ -467,7 +471,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.parent = holdPositionLeft;
 
                 //Play the happy birthday audio
-                audioManager.PlaySFX(audioManager.happyBirthday);
+                //audioManager.PlaySFX(audioManager.happyBirthday);
             }
 
         }

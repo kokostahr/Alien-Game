@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip gunShot;
     public AudioClip enemyCaveSound;
     public AudioClip howLongHave;
-    public AudioClip happyBirthday;
+    public AudioClip walkingSound;
     public AudioClip hasToGetOut;
 
 

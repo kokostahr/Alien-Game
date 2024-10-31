@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
         nextFire = Time.time;
 
         //Make sure the BloodSplash Is Not Playing at game start
-        bloodSplash.Stop();
+        bloodSplash.Pause();
     }
 
     // Update is called once per frame
