@@ -58,7 +58,7 @@ public class FirstPersonControls : MonoBehaviour
     public Transform holdPositionLeft; // Position where the picked-up object will be held
     public Transform holdPositionRight; // Position where the picked-up object will be held
     private GameObject heldObject; // Reference to the currently held object
-    public ParticleSystem keyGlow; //Calling the glow of the bone key
+    //public ParticleSystem keyGlow; //Calling the glow of the bone key
 
     // Crouch settings
     [Header("CROUCH SETTINGS")]
@@ -300,6 +300,9 @@ public class FirstPersonControls : MonoBehaviour
         {
             Debug.Log("Shoot called");
 
+            //Play the shooting gun sound
+            audioManager.PlaySFX(audioManager.gunShot);
+
             // Instantiate the projectile at the fire point
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 
@@ -435,7 +438,7 @@ public class FirstPersonControls : MonoBehaviour
             if (hit.collider.CompareTag("Key"))
             {
                 //Stop the particle system from playing
-                keyGlow.Stop();
+                //keyGlow.Stop();
 
                 // Pick up the object
                 heldObject = hit.collider.gameObject;

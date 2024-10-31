@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
     //Calling these variables so we can store them.
     public AudioClip bgMusic;
     public AudioClip herScreamSFX;
-    public AudioClip hisScreamSFX;
+    public AudioClip gunShot;
     public AudioClip enemyCaveSound;
     public AudioClip howLongHave;
     public AudioClip happyBirthday;
