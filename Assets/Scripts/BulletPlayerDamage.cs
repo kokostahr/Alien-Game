@@ -81,7 +81,7 @@ public class BulletPlayerDamage : MonoBehaviour
             Destroy(gameObject);
 
             //StopPlaying the blood splash. Only play it once everytime the bullet collides.
-            enemyController.bloodSplash.Stop();
+            enemyController.bloodSplash.Pause();
         }
     }
     #endregion

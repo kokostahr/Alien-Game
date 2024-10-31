@@ -83,6 +83,8 @@ public class EnemyController : MonoBehaviour
         //fireRate = 3f;
         nextFire = Time.time;
 
+        //Make sure the BloodSplash Is Not Playing at game start
+        bloodSplash.Stop();
     }
 
     // Update is called once per frame
@@ -107,7 +109,7 @@ public class EnemyController : MonoBehaviour
             transform.forward = navMeshAgent.velocity.normalized;
         }
         
-        //CHECK WHERE THE BULLET COLLIDED WITH 
+      
     }
 
     public void CheckIfTimeToFire() //For Shooting their Laser Eyes
