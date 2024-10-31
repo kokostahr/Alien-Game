@@ -63,11 +63,13 @@ public class BulletPlayerDamage : MonoBehaviour
         {
             Debug.Log("KILL 'EM");
             
-            //PLAY THE BLOOD PARTICLE SYSTEM
-            //bloodSplash.Play();
 
             // Get the EnemyController directly from the "other" object
             EnemyController enemyController = other.gameObject.GetComponent<EnemyController>();
+
+            //PLAY THE BLOOD PARTICLE SYSTEM. Call the enemyController and access the bloodsplash particle effect from its variables.
+            //Why are we accessing it on the enemy? Because the bullet is a prefab and we cannot put gameObj into the inspector
+            enemyController.bloodSplash.Play();
 
             if (enemyController != null)
             {
@@ -78,8 +80,8 @@ public class BulletPlayerDamage : MonoBehaviour
             // Destroy the bullet after it hits the enemy (you can add effects later)
             Destroy(gameObject);
 
-            //StopPlaying the blood splash
-            //bloodSplash.Stop();
+            //StopPlaying the blood splash. Only play it once everytime the bullet collides.
+            enemyController.bloodSplash.Stop();
         }
     }
     #endregion
