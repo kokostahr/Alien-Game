@@ -94,6 +94,7 @@ public class FirstPersonControls : MonoBehaviour
     public LayerMask outdoorLayer;
     public LayerMask indoorLayer;
     public LayerMask waterLayer;
+    public LayerMask portalLayer;
 
     [Header("ANIMATION SETTINGS")]
     [Space(5)]
@@ -243,9 +244,24 @@ public class FirstPersonControls : MonoBehaviour
         characterController.Move(move * currentSpeed * Time.deltaTime);
         mcAnim.SetFloat("Speed", currentSpeed); //Update the speed parameter in the Animator
 
-        
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1f))
+        {
+            if (((1 << hit.collider.gameObject.layer) & indoorLayer) != 0)
+            {
+                //Play the indoor walking audio
+                audioManager.PlaySFX(audioManager.walkingInside);
+            }
+            else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
+            {
+                //Play the outdoor walking audio
+                audioManager.PlaySFX(audioManager.walkingOutside);
+            }
+        }
     }
-    public void LookAround()
+        public void LookAround()
     {
         // Get horizontal and vertical look inputs and adjust based on sensitivity
         float LookX = lookInput.x * lookSpeed;
@@ -274,19 +290,25 @@ public class FirstPersonControls : MonoBehaviour
             {
                 Debug.Log("Looking at inside floor");
                 //Play the indoor walking audio
-                audioManager.PlaySFX(audioManager.walkingInside);
+                //audioManager.PlaySFX(audioManager.walkingInside);
             }
             else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
             {
                 Debug.Log("Looking at outside floor");
                 //Play the outdoor walking audio
-                audioManager.PlaySFX(audioManager.walkingOutside);
+                //audioManager.PlaySFX(audioManager.walkingOutside);
             }
             else if (((1 << hit.collider.gameObject.layer) & waterLayer) != 0)
             {
                 Debug.Log("Looking at outside floor");
                 //Play the water slosh audio
                 audioManager.PlaySFX(audioManager.waterSlosh);
+            }
+            else if (((1 << hit.collider.gameObject.layer) & portalLayer) != 0)
+            {
+                Debug.Log("Looking at outside floor");
+                //Play the weird portal audio
+                audioManager.PlaySFX(audioManager.portalSound);
             }
         } 
     }

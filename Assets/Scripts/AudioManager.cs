@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip walkingInside;
     public AudioClip walkingOutside;
     public AudioClip waterSlosh;
-    //public AudioClip alienSounds;
+    public AudioClip portalSound;
     public AudioClip hasToGetOut;
 
 
