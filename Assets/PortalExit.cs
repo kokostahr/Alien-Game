@@ -9,7 +9,7 @@ public class PortalExit : MonoBehaviour
     [Space(5)]
     public GameObject portal;
     public string portalExit;
-    public AudioManager audioManager;
+    //public AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()

@@ -307,12 +307,12 @@ public class FirstPersonControls : MonoBehaviour
                 //Play the water slosh audio
                 audioManager.PlaySFX(audioManager.waterSlosh);
             }
-            else if (((1 << hit.collider.gameObject.layer) & portalLayer) != 0)
-            {
-                Debug.Log("Looking at portal");
-                //Play the weird portal audio
-                audioManager.PlaySFX(audioManager.portalSound);
-            }
+            //else if (((1 << hit.collider.gameObject.layer) & portalLayer) != 0)
+            //{
+            //    Debug.Log("Looking at portal");
+            //    //Play the weird portal audio
+            //    audioManager.PlaySFX(audioManager.portalSound);
+            //}
         } 
     }
 
