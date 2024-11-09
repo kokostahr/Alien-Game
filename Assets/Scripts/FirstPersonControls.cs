@@ -223,6 +223,8 @@ public class FirstPersonControls : MonoBehaviour
         move = transform.TransformDirection(move);
         float currentSpeed;
 
+       //Need code that will deactive the jumping and return it back to the walking state. 
+
         if (moveInput.x == 0 && moveInput.y == 0)
         {
             currentSpeed = 0;
@@ -245,22 +247,22 @@ public class FirstPersonControls : MonoBehaviour
         characterController.Move(move * currentSpeed * Time.deltaTime);
         mcAnim.SetFloat("Speed", currentSpeed); //Update the speed parameter in the Animator
 
-        //Ray ray = new Ray(transform.position, Vector3.down);
-        //RaycastHit hit;
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
 
-        //if (Physics.Raycast(ray, out hit, 1f))
-        //{
-        //    if (((1 << hit.collider.gameObject.layer) & indoorLayer) != 0)
-        //    {
-        //        //Play the indoor walking audio
-        //        audioManager.PlaySFX(audioManager.walkingInside);
-        //    }
-        //    else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
-        //    {
-        //        //Play the outdoor walking audio
-        //        audioManager.PlaySFX(audioManager.walkingOutside);
-        //    }
-        //}
+        if (Physics.Raycast(ray, out hit, 1f))
+        {
+            if (((1 << hit.collider.gameObject.layer) & indoorLayer) != 0)
+            {
+                //Play the indoor walking audio
+                audioManager.FootstepSFX(audioManager.walkingInside);
+            }
+            else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
+            {
+                //Play the outdoor walking audio
+                audioManager.FootstepSFX(audioManager.walkingOutside);
+            }
+        }
     }
     public void LookAround()
     {
@@ -291,13 +293,13 @@ public class FirstPersonControls : MonoBehaviour
             {
                 Debug.Log("Looking at inside floor");
                 //Play the indoor walking audio
-                audioManager.PlaySFX(audioManager.walkingInside);
+                //audioManager.FootstepSFX(audioManager.walkingInside);
             }
             else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
             {
                 Debug.Log("Looking at outside floor");
                 //Play the outdoor walking audio
-                audioManager.PlaySFX(audioManager.walkingOutside);
+                //audioManager.FootstepSFX(audioManager.walkingOutside);
             }
             else if (((1 << hit.collider.gameObject.layer) & waterLayer) != 0)
             {

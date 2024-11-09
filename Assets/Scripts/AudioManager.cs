@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource sfxSource;
     [SerializeField] AudioSource weaponSource;
+    [SerializeField] AudioSource footstepSource;
 
     [Header("AUDIO CLIP SETUP")]
     [Space(5)]
@@ -60,6 +61,11 @@ public class AudioManager : MonoBehaviour
     public void WeaponSFX(AudioClip clip)
     {
         weaponSource.PlayOneShot(clip);
+    }
+
+    public void FootstepSFX(AudioClip clip)
+    {
+        footstepSource.PlayOneShot(clip);
     }
 
     void Update()
