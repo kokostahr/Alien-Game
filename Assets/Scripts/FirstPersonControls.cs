@@ -95,6 +95,7 @@ public class FirstPersonControls : MonoBehaviour
     public LayerMask indoorLayer;
     public LayerMask waterLayer;
     public LayerMask portalLayer;
+    //public AudioClip gunshotSound;
 
     [Header("ANIMATION SETTINGS")]
     [Space(5)]
@@ -244,24 +245,24 @@ public class FirstPersonControls : MonoBehaviour
         characterController.Move(move * currentSpeed * Time.deltaTime);
         mcAnim.SetFloat("Speed", currentSpeed); //Update the speed parameter in the Animator
 
-        Ray ray = new Ray(transform.position, Vector3.down);
-        RaycastHit hit;
+        //Ray ray = new Ray(transform.position, Vector3.down);
+        //RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 1f))
-        {
-            if (((1 << hit.collider.gameObject.layer) & indoorLayer) != 0)
-            {
-                //Play the indoor walking audio
-                audioManager.PlaySFX(audioManager.walkingInside);
-            }
-            else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
-            {
-                //Play the outdoor walking audio
-                audioManager.PlaySFX(audioManager.walkingOutside);
-            }
-        }
+        //if (Physics.Raycast(ray, out hit, 1f))
+        //{
+        //    if (((1 << hit.collider.gameObject.layer) & indoorLayer) != 0)
+        //    {
+        //        //Play the indoor walking audio
+        //        audioManager.PlaySFX(audioManager.walkingInside);
+        //    }
+        //    else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
+        //    {
+        //        //Play the outdoor walking audio
+        //        audioManager.PlaySFX(audioManager.walkingOutside);
+        //    }
+        //}
     }
-        public void LookAround()
+    public void LookAround()
     {
         // Get horizontal and vertical look inputs and adjust based on sensitivity
         float LookX = lookInput.x * lookSpeed;
@@ -290,23 +291,23 @@ public class FirstPersonControls : MonoBehaviour
             {
                 Debug.Log("Looking at inside floor");
                 //Play the indoor walking audio
-                //audioManager.PlaySFX(audioManager.walkingInside);
+                audioManager.PlaySFX(audioManager.walkingInside);
             }
             else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
             {
                 Debug.Log("Looking at outside floor");
                 //Play the outdoor walking audio
-                //audioManager.PlaySFX(audioManager.walkingOutside);
+                audioManager.PlaySFX(audioManager.walkingOutside);
             }
             else if (((1 << hit.collider.gameObject.layer) & waterLayer) != 0)
             {
-                Debug.Log("Looking at outside floor");
+                Debug.Log("Looking at river water");
                 //Play the water slosh audio
                 audioManager.PlaySFX(audioManager.waterSlosh);
             }
             else if (((1 << hit.collider.gameObject.layer) & portalLayer) != 0)
             {
-                Debug.Log("Looking at outside floor");
+                Debug.Log("Looking at portal");
                 //Play the weird portal audio
                 audioManager.PlaySFX(audioManager.portalSound);
             }
@@ -352,7 +353,8 @@ public class FirstPersonControls : MonoBehaviour
             Debug.Log("Shoot called");
 
             //Play the shooting gun sound
-            audioManager.PlaySFX(audioManager.gunShot);
+            audioManager.WeaponSFX(audioManager.gunShot);
+            //gunshotSound.Play();
 
             // Instantiate the projectile at the fire point
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);

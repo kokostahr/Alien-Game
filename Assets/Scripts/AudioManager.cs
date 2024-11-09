@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     [Space(5)]
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource sfxSource;
+    [SerializeField] AudioSource weaponSource;
 
     [Header("AUDIO CLIP SETUP")]
     [Space(5)]
@@ -54,6 +55,11 @@ public class AudioManager : MonoBehaviour
     {
         sfxSource.PlayOneShot(clip);
 
+    }
+
+    public void WeaponSFX(AudioClip clip)
+    {
+        weaponSource.PlayOneShot(clip);
     }
 
     void Update()
