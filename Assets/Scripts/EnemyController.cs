@@ -55,10 +55,10 @@ public class EnemyController : MonoBehaviour
     bool walkingPointSet;
     public float walkingPointRange;
 
-    [Header("ENEMYE BLEEDING")]
+    [Header("ENEMYE BLEEDING AND SOUNDS")]
     [Space(5)]
     public ParticleSystem bloodSplash;//THE BLOOD SPLASH THINGY
-
+    public AudioSource enemygrowl;
 
 
     private void Awake()
@@ -127,7 +127,8 @@ public class EnemyController : MonoBehaviour
     public void EnemyTakesDamage (int damageToTake)
     {
         emycurrentHealth -= damageToTake;
-
+        //Play the blood splash to show that the enemy takes damage
+        bloodSplash.Play();
         if (emycurrentHealth == 0)
         {
             if (this.gameObject != null)
@@ -142,8 +143,23 @@ public class EnemyController : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             Debug.Log("Ouchie!");
+
+            //Play the enemy growling sound
+            enemygrowl.Play();
+
             //FindObjectOfType<FirstPersonControls>().currentHealth -= enemyDamageAmount;
             firstPersonControls.currentHealth -= enemyDamageAmount;
+        }
+    }
+
+    public void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Debug.Log("Bye!");
+
+            //Stop playing the enemy growling sound
+            enemygrowl.Stop();
         }
     }
 
