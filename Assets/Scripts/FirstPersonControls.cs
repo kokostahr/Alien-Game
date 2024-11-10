@@ -207,11 +207,11 @@ public class FirstPersonControls : MonoBehaviour
             knifeAnim.ResetTrigger("Active");
         }
 
-        // Check if the animation is done playing and reset the trigger
-        if (animStateInfo.IsTag("Jumping") && animStateInfo.normalizedTime >= 1.0f)
-        {
-            mcAnim.ResetTrigger("Jumped");
-        }
+        //// Check if the animation is done playing and reset the trigger
+        //if (animStateInfo.IsTag("Jumping") && animStateInfo.normalizedTime >= 1.0f)
+        //{
+        //    mcAnim.ResetTrigger("Jumped");
+        //}
     }
     public void Move()
     {
@@ -241,6 +241,13 @@ public class FirstPersonControls : MonoBehaviour
         else
         {
             currentSpeed = moveSpeed;
+        }
+
+        //Need to reset the jump trigger so the player stops jumping when they move
+        if (characterController.isGrounded && (moveInput.x != 0 || moveInput.y != 0))
+        {
+            // If the player is on the ground and moving, reset the "Jumped" trigger
+            mcAnim.ResetTrigger("Jumped");
         }
 
         // Move the character controller based on the movement vector and speed
