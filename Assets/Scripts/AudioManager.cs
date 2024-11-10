@@ -10,16 +10,21 @@ public class AudioManager : MonoBehaviour
     [Space(5)]
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource sfxSource;
+    [SerializeField] AudioSource weaponSource;
+    [SerializeField] AudioSource footstepSource;
 
     [Header("AUDIO CLIP SETUP")]
     [Space(5)]
     //Calling these variables so we can store them.
     public AudioClip bgMusic;
     public AudioClip herScreamSFX;
-    public AudioClip hisScreamSFX;
+    public AudioClip gunShot;
     public AudioClip enemyCaveSound;
     public AudioClip howLongHave;
-    public AudioClip happyBirthday;
+    public AudioClip walkingInside;
+    public AudioClip walkingOutside;
+    public AudioClip waterSlosh;
+    //public AudioClip portalSound;
     public AudioClip hasToGetOut;
 
 
@@ -51,6 +56,16 @@ public class AudioManager : MonoBehaviour
     {
         sfxSource.PlayOneShot(clip);
 
+    }
+
+    public void WeaponSFX(AudioClip clip)
+    {
+        weaponSource.PlayOneShot(clip);
+    }
+
+    public void FootstepSFX(AudioClip clip)
+    {
+        footstepSource.PlayOneShot(clip);
     }
 
     void Update()

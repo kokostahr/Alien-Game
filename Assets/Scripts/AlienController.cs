@@ -8,25 +8,30 @@ public class AlienController : MonoBehaviour
     //Reference the countdown timer script, then use time remaining and anim parametre (float)
     //to set different values for the different alien states, and say when 
 
-    [Header("TIMER LINKING")]
+    [Header("AUDIO MANAGEMENT")]
     [Space(5)]
-    CountDownTimer countDownTimer;
+    public AudioSource alienSounds;
 
-   
 
-    private void Awake()
+    //Only need a trigger to detect when the player is within the playing field, then the alien sounds will go off
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player")) 
+        {
+            //audioManager.PlaySFX(audioManager.alienSounds);
+            alienSounds.Play();
+        }
     }
 
-    void Start()
+    private void OnTriggerExit(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            alienSounds.Stop();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }
