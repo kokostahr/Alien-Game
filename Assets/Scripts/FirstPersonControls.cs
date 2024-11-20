@@ -58,7 +58,7 @@ public class FirstPersonControls : MonoBehaviour
     public Transform holdPositionLeft; // Position where the picked-up object will be held
     public Transform holdPositionRight; // Position where the picked-up object will be held
     private GameObject heldObject; // Reference to the currently held object
-    public ParticleSystem keyGlow; //Calling the glow of the bone key
+    //public ParticleSystem keyGlow; //Calling the glow of the bone key
 
     // Crouch settings
     [Header("CROUCH SETTINGS")]
@@ -91,6 +91,11 @@ public class FirstPersonControls : MonoBehaviour
     //Accessing AudioManager Script so we can play the relevant sounds at the right time
     AudioManager audioManager;
     public string loadNewScene;
+    public LayerMask outdoorLayer;
+    public LayerMask indoorLayer;
+    public LayerMask waterLayer;
+    public LayerMask portalLayer;
+    //public AudioClip gunshotSound;
 
     [Header("ANIMATION SETTINGS")]
     [Space(5)]
@@ -108,6 +113,9 @@ public class FirstPersonControls : MonoBehaviour
 
     private void Start()
     {
+        //Trying to stop the camera from tilting 90degrees when the game starts
+        playerCamera.localEulerAngles = Vector3.zero;
+
         //Play audio when player wakes up
         audioManager.PlaySFX(audioManager.howLongHave);
 
@@ -199,11 +207,11 @@ public class FirstPersonControls : MonoBehaviour
             knifeAnim.ResetTrigger("Active");
         }
 
-        // Check if the animation is done playing and reset the trigger
-        if (animStateInfo.IsTag("Jumping") && animStateInfo.normalizedTime >= 1.0f)
-        {
-            mcAnim.ResetTrigger("Jumped");
-        }
+        //// Check if the animation is done playing and reset the trigger
+        //if (animStateInfo.IsTag("Jumping") && animStateInfo.normalizedTime >= 1.0f)
+        //{
+        //    mcAnim.ResetTrigger("Jumped");
+        //}
     }
     public void Move()
     {
@@ -214,6 +222,8 @@ public class FirstPersonControls : MonoBehaviour
         // Local space refers to its self space whereas world space refers to the gloabal space within the game world. eg a moon orbits around the earth - Local Space. Moon orbits around the sun - world space.
         move = transform.TransformDirection(move);
         float currentSpeed;
+
+       //Need code that will deactive the jumping and return it back to the walking state. 
 
         if (moveInput.x == 0 && moveInput.y == 0)
         {
@@ -233,10 +243,33 @@ public class FirstPersonControls : MonoBehaviour
             currentSpeed = moveSpeed;
         }
 
+        //Need to reset the jump trigger so the player stops jumping when they move
+        if (characterController.isGrounded && (moveInput.x != 0 || moveInput.y != 0))
+        {
+            // If the player is on the ground and moving, reset the "Jumped" trigger
+            mcAnim.ResetTrigger("Jumped");
+        }
+
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * currentSpeed * Time.deltaTime);
         mcAnim.SetFloat("Speed", currentSpeed); //Update the speed parameter in the Animator
 
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1f))
+        {
+            if (((1 << hit.collider.gameObject.layer) & indoorLayer) != 0)
+            {
+                //Play the indoor walking audio
+                audioManager.FootstepSFX(audioManager.walkingInside);
+            }
+            else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
+            {
+                //Play the outdoor walking audio
+                audioManager.FootstepSFX(audioManager.walkingOutside);
+            }
+        }
     }
     public void LookAround()
     {
@@ -257,7 +290,39 @@ public class FirstPersonControls : MonoBehaviour
 
         // Apply the clamped vertical rotation to the player camera, because the player is looking through the camera view, not the player object. 
         playerCamera.localEulerAngles = new Vector3(verticalLookRotation, 0, 0);
+
+        //Need a code that says when the player walks on the ground layer, then the audio should switch from indoor footsteps to grass footsteps.
+        //Using the Raycast forward to detect what kind of surface the player is walking on.
+        RaycastHit hit;
+        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, 10f)) //10 is the range/distance
+        {
+            if (((1 << hit.collider.gameObject.layer) & indoorLayer) != 0)
+            {
+                Debug.Log("Looking at inside floor");
+                //Play the indoor walking audio
+                //audioManager.FootstepSFX(audioManager.walkingInside);
+            }
+            else if (((1 << hit.collider.gameObject.layer) & outdoorLayer) != 0)
+            {
+                Debug.Log("Looking at outside floor");
+                //Play the outdoor walking audio
+                //audioManager.FootstepSFX(audioManager.walkingOutside);
+            }
+            else if (((1 << hit.collider.gameObject.layer) & waterLayer) != 0)
+            {
+                Debug.Log("Looking at river water");
+                //Play the water slosh audio
+                audioManager.PlaySFX(audioManager.waterSlosh);
+            }
+            //else if (((1 << hit.collider.gameObject.layer) & portalLayer) != 0)
+            //{
+            //    Debug.Log("Looking at portal");
+            //    //Play the weird portal audio
+            //    audioManager.PlaySFX(audioManager.portalSound);
+            //}
+        } 
     }
+
     public void ApplyGravity()
     {
         //Checking if the player is on the ground, so that they remain on the ground. 
@@ -295,6 +360,10 @@ public class FirstPersonControls : MonoBehaviour
         if (holdingGun == true && currentBullets > 0)                                 
         {
             Debug.Log("Shoot called");
+
+            //Play the shooting gun sound
+            audioManager.WeaponSFX(audioManager.gunShot);
+            //gunshotSound.Play();
 
             // Instantiate the projectile at the fire point
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
@@ -431,7 +500,7 @@ public class FirstPersonControls : MonoBehaviour
             if (hit.collider.CompareTag("Key"))
             {
                 //Stop the particle system from playing
-                keyGlow.Stop();
+                //keyGlow.Stop();
 
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -460,7 +529,7 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.parent = holdPositionLeft;
 
                 //Play the happy birthday audio
-                audioManager.PlaySFX(audioManager.happyBirthday);
+                //audioManager.PlaySFX(audioManager.happyBirthday);
             }
 
         }
@@ -541,8 +610,8 @@ public class FirstPersonControls : MonoBehaviour
                 // Start moving the door upwards
                 StartCoroutine(OpenGate(hit.collider.gameObject));
 
-                //Play the man's screaming audio
-                audioManager.PlaySFX(audioManager.hisScreamSFX);
+                //Play the man's screaming audio. Its too loud so we remove
+                //audioManager.PlaySFX(audioManager.hisScreamSFX);
 
                 //Hide interaction text after the stuff has been pressed
                 //gateInteractionText.SetActive(false)
